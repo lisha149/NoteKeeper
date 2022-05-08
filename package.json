@@ -5,11 +5,14 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon backend/server.js"
+    "start": "nodemon backend/server.js",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm start\" \"npm run client\""
   },
   "author": "Palisha Shakya",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "^7.1.0",
     "create-react-app": "^5.0.1",
     "dotenv": "^16.0.0",
     "express": "^4.18.1",

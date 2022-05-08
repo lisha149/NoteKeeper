@@ -1,16 +1,24 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Main from "../../components/Main";
 import { Link } from "react-router-dom";
 import { Button, Card, Badge } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import notes from "../../data/notes";
-
+import axios from "axios";
 const MyNotes = () => {
+  const [state, setNotes] = useState([]);
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
     }
   };
-
+  const fetchNotes = async () => {
+    const { data } = await axios.get("/api/notes");
+    setNotes(data);
+  };
+  console.log(notes);
+  useEffect(() => {
+    fetchNotes();
+  }, []);
   return (
     <Main title="Welcome Palisha Shakya">
       <Link to="/createnote">
@@ -19,7 +27,7 @@ const MyNotes = () => {
         </Button>
       </Link>
       {notes.map((note) => (
-        <Accordion>
+        <Accordion key={note._id}>
           <Card style={{ margin: 10 }}>
             <Card.Header style={{ display: "flex" }}>
               <span
