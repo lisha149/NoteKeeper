@@ -7,6 +7,7 @@ import {
   Navbar,
   NavDropdown,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
 const Header = () => {
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
@@ -24,7 +25,9 @@ const Header = () => {
             </Form>
           </Nav>
           <Nav>
-            <Nav.Link href="#home">My Notes</Nav.Link>
+            <Nav.Link>
+              <Link to="/mynotes">My Notes</Link>
+            </Nav.Link>
             <NavDropdown title="Palisha Shakya" id="basic-nav-dropdown">
               <NavDropdown.Item href="#action/3.1">My Profile</NavDropdown.Item>
               <NavDropdown.Item href="#action/3.2">Logout</NavDropdown.Item>
