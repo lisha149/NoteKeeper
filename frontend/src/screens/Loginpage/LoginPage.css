@@ -5,3 +5,8 @@
 .loginContainer .form-group {
   margin: 15px 0;
 }
+.loginContainer .error-msg {
+  margin: 0 10px;
+  font-size: small;
+  color: red;
+}

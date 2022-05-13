@@ -4,10 +4,10 @@ import Header from "../../components/Header";
 import { Link } from "react-router-dom";
 import { Button, Card, Badge } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
-import notes from "../../data/notes";
+// import notes from "../../data/notes";
 import axios from "axios";
 const MyNotes = () => {
-  const [state, setNotes] = useState([]);
+  const [notes, setNotes] = useState([]);
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
     }
@@ -16,15 +16,16 @@ const MyNotes = () => {
     const { data } = await axios.get("/api/notes");
     setNotes(data);
   };
-  console.log(notes);
   useEffect(() => {
     fetchNotes();
   }, []);
+
+  // const userInfo = localStorage.getItem("userInfo");
   return (
     <>
       <Header />
-      <Main title="Welcome Palisha Shakya">
-        <Link to="/createnote">
+      <Main title="Welcome">
+        <Link to="/api/notes/create">
           <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
             Create New Note
           </Button>
