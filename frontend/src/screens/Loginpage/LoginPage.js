@@ -51,7 +51,7 @@ const LoginPage = ({ history }) => {
       <div className="loginContainer">
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
         {loading && <Loading />}
-        <Form onSubmit={submitHandler}>
+        <Form style={{ marginTop: 20 }} onSubmit={submitHandler}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
             <Form.Control
@@ -62,7 +62,7 @@ const LoginPage = ({ history }) => {
             />
           </Form.Group>
 
-          <Form.Group controlId="formBasicPassword">
+          <Form.Group style={{ marginTop: 20 }} controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -73,7 +73,7 @@ const LoginPage = ({ history }) => {
           </Form.Group>
 
           <Button
-            style={{ flexDirection: "row", marginTop: 10 }}
+            style={{ flexDirection: "row", marginTop: 30 }}
             variant="primary"
             type="submit"
           >

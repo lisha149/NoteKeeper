@@ -88,7 +88,7 @@ const RegisterPage = () => {
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
         {message && <ErrorMessage variant="danger">{message}</ErrorMessage>}
         {loading && <Loading />}
-        <Form onSubmit={submitHandler}>
+        <Form style={{ marginTop: 20 }} onSubmit={submitHandler}>
           <Form.Group controlId="name">
             <Form.Label>Name</Form.Label>
             <Form.Control
