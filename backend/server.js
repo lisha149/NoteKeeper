@@ -18,7 +18,7 @@ app.get("/", (req, res) => {
 //   res.json(notes);
 // });
 
-app.use("/api/users", userRoutes);
+app.use("/api/auth", userRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

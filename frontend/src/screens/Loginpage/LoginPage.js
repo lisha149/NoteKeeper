@@ -30,7 +30,7 @@ const LoginPage = ({ history }) => {
       };
       setLoading(true);
       const { data } = await axios.post(
-        "/api/users/login",
+        "/api/auth/login",
         {
           email,
           password,
@@ -41,6 +41,7 @@ const LoginPage = ({ history }) => {
       localStorage.setItem("userInfo", JSON.stringify(data));
       setLoading(false);
     } catch (error) {
+      setLoading(false);
       setError(error.response.data.message);
     }
   };
@@ -76,7 +77,7 @@ const LoginPage = ({ history }) => {
             variant="primary"
             type="submit"
           >
-            Submit
+            Login
           </Button>
         </Form>
         <Row className="py-3">

@@ -37,6 +37,11 @@ const registerUser = asyncHandler(async (req, res) => {
 const authUser = asyncHandler(async (req, res) => {
   const { email, password } = req.body;
 
+  if (email == "" || password == "") {
+    res.status(400);
+    throw new Error("Email address or password cannot be empty");
+  }
+
   const user = await User.findOne({ email });
 
   if (user && (await user.matchPassword(password))) {

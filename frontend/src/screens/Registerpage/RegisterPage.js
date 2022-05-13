@@ -138,12 +138,16 @@ const RegisterPage = () => {
               onChange={(e) => postDetails(e.target.files[0])}
               id="custom-file"
               type="image/png"
-              label="Upload Profile Picture"
+              // label="Upload Profile Picture"
               custom
             />
           </Form.Group>
 
-          <Button variant="primary" type="submit">
+          <Button
+            style={{ flexDirection: "row", marginTop: 10 }}
+            variant="primary"
+            type="submit"
+          >
             Register
           </Button>
         </Form>

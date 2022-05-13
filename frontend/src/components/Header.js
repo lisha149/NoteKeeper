@@ -13,7 +13,9 @@ const Header = () => {
   return (
     <Navbar bg="primary" expand="lg" variant="dark">
       <Container>
-        <Navbar.Brand href="/">Note Keeper</Navbar.Brand>
+        <Navbar.Brand Link to="/">
+          Note Keeper
+        </Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="m-auto">

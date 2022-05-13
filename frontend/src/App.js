@@ -12,8 +12,8 @@ const App = () => (
     <Header />
     <main>
       <Route path="/" component={LandingPage} exact />
-      <Route path="/login" component={LoginPage} exact />
-      <Route path="/register" component={RegisterPage} exact />
+      <Route path="/login" component={LoginPage} />
+      <Route path="/register" component={RegisterPage} />
       <Route path="/mynotes" component={MyNotes} />
     </main>
     <Footer />
