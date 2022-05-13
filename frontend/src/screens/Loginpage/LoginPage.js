@@ -6,12 +6,14 @@ import ErrorMessage from "../../components/ErrorMessage";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import "./LoginPage.css";
 import axios from "axios";
-
+import { useHistory } from "react-router-dom";
 const LoginPage = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(false);
+
+  let navigate = useHistory();
 
   useEffect(() => {
     const userInfo = localStorage.getItem("userInfo");
@@ -37,9 +39,12 @@ const LoginPage = ({ history }) => {
         },
         config
       );
+      setLoading(false);
       console.log(data);
       localStorage.setItem("userInfo", JSON.stringify(data));
-      setLoading(false);
+
+      // navigate.push("/mynotes");
+      window.location.reload();
     } catch (error) {
       setLoading(false);
       setError(error.response.data.message);

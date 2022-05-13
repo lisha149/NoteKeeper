@@ -9,8 +9,8 @@ import RegisterPage from "./screens/Registerpage/RegisterPage";
 
 const App = () => (
   <Router>
-    <Header />
     <main>
+      {/* <Header /> */}
       <Route path="/" component={LandingPage} exact />
       <Route path="/login" component={LoginPage} />
       <Route path="/register" component={RegisterPage} />
