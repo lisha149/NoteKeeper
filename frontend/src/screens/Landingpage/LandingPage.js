@@ -1,14 +1,17 @@
 import React from "react";
 import { Button, Container, Row } from "react-bootstrap";
 import "./LandingStyles.css";
+import { useHistory } from "react-router-dom";
+import { useEffect } from "react";
 
-const LandingPage = () => {
-  //  useEffect(() => {
-  //    const userInfo = localStorage.getItem("userInfo");
-  //    if (userInfo) {
-  //      history.push("/mynotes");
-  //    }
-  //  }, [history]);
+const LandingPage = ({ history }) => {
+  useEffect(() => {
+    const userInfo = localStorage.getItem("userInfo");
+    if (userInfo) {
+      history.push("/mynotes");
+      history.go();
+    }
+  }, [history]);
   return (
     <div className="main">
       <Container>

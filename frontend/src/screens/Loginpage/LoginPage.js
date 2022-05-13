@@ -9,6 +9,7 @@ import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 const LoginPage = ({ history }) => {
+  window.mango = history;
   const [email, setEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
@@ -20,23 +21,23 @@ const LoginPage = ({ history }) => {
     const userInfo = localStorage.getItem("userInfo");
     if (userInfo) {
       history.push("/mynotes");
+      history.go();
     }
-  }, [history]);
-
+  }, [history, emailError]);
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    if (email == "") {
+    if (!email) {
       setEmailError("Email Required");
       console.log("I am at empty email condition");
     }
-    if (password == "") {
+    if (!password) {
       setPasswordError("Password Required");
       console.log("I am at empty password condition");
     }
     console.log("Email error:" + emailError);
     console.log("Password error:" + passwordError);
-    if (emailError === "" && passwordError === "") {
+    if (!emailError && !passwordError) {
       try {
         const config = {
           headers: {
@@ -56,8 +57,9 @@ const LoginPage = ({ history }) => {
         console.log(data);
         localStorage.setItem("userInfo", JSON.stringify(data));
 
-        // navigate.push("/mynotes");
-        window.location.reload();
+        history.push("/mynotes");
+        history.go();
+        // window.location.reload();
       } catch (error) {
         setLoading(false);
         setError(error.response.data.message);
