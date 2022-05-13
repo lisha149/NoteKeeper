@@ -2,3 +2,6 @@
   display: flex;
   flex-direction: column;
 }
+.loginContainer .form-group {
+  margin: 15px 0;
+}

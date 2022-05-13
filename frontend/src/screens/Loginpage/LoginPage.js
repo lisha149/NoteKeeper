@@ -7,6 +7,7 @@ import { Form, Button, Row, Col } from "react-bootstrap";
 import "./LoginPage.css";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
+
 const LoginPage = ({ history }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -67,7 +68,7 @@ const LoginPage = ({ history }) => {
             />
           </Form.Group>
 
-          <Form.Group style={{ marginTop: 20 }} controlId="formBasicPassword">
+          <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
               type="password"
@@ -78,7 +79,7 @@ const LoginPage = ({ history }) => {
           </Form.Group>
 
           <Button
-            style={{ flexDirection: "row", marginTop: 30 }}
+            style={{ flexDirection: "row", marginTop: 10 }}
             variant="primary"
             type="submit"
           >

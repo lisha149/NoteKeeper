@@ -37,6 +37,7 @@ const Header = () => {
                 onClick={() => {
                   localStorage.removeItem("userInfo");
                   history.push("/");
+                  window.location.reload();
                 }}
               >
                 Logout
