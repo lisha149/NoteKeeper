@@ -1,10 +1,13 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import Main from "../../components/Main";
-import axios from "axios";
+import { register } from "../../actions/userActions";
+import { useHistory } from "react-router-dom";
+
 import "./RegisterPage.css";
 
 const RegisterPage = () => {
@@ -17,40 +20,24 @@ const RegisterPage = () => {
   const [confirmpassword, setConfirmPassword] = useState("");
   const [message, setMessage] = useState(null);
   const [picMessage, setPicMessage] = useState(null);
-  const [error, setError] = useState(false);
-  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+
+  const userRegister = useSelector((state) => state.userRegister);
+  const { loading, error, userInfo } = userRegister;
+
+  const history = useHistory();
+  useEffect(() => {
+    if (userInfo) {
+      history.push("/mynotes");
+    }
+  }, [history, userInfo]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
     if (password !== confirmpassword) {
       setMessage("Passwords do not match");
-    } else {
-      setMessage(null);
-      try {
-        const config = {
-          headers: {
-            "Content-type": "application/json",
-          },
-        };
-        setLoading(true);
-        const { data } = await axios.post(
-          "/api/users",
-          {
-            name,
-            pic,
-            email,
-            password,
-          },
-          config
-        );
-        setLoading(false);
-        localStorage.setItem("userInfo", JSON.stringify(data));
-      } catch (error) {
-        setError(error.response.data.message);
-      }
-    }
-    // console.log(email);
+    } else dispatch(register(name, email, password, pic));
   };
 
   const postDetails = (pics) => {
