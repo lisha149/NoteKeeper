@@ -5,6 +5,7 @@ import LandingPage from "./screens/Landingpage/LandingPage";
 import MyNotes from "./screens/Mynotes/MyNotes";
 import LoginPage from "./screens/Loginpage/LoginPage";
 import RegisterPage from "./screens/Registerpage/RegisterPage";
+import ProfilePage from "./screens/Profilepage/ProfilePage";
 import CreateNote from "./screens/Createnote/CreateNote";
 import UpdateNote from "./screens/Singlenote/UpdateDeleteNote";
 const App = () => (
@@ -12,6 +13,7 @@ const App = () => (
     <main>
       <Route path="/" component={LandingPage} exact />
       <Route path="/login" component={LoginPage} />
+      <Route path="/profile" component={ProfilePage} />
       <Route path="/register" component={RegisterPage} />
       <Route path="/createnote" component={CreateNote} />
       <Route path="/note/:id" component={UpdateNote} />

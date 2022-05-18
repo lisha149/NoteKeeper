@@ -1,7 +1,7 @@
 import React from "react";
 import { Button, Container, Row } from "react-bootstrap";
 import "./LandingStyles.css";
-import { useHistory } from "react-router-dom";
+
 import { useEffect } from "react";
 
 const LandingPage = ({ history }) => {

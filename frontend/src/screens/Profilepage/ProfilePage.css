@@ -1,0 +1,19 @@
+.profilePic {
+  width: 60%;
+  display: flex;
+  align-items: center;
+  padding: 20px;
+}
+.profileContainer {
+  display: flex;
+  margin: 20px;
+}
+.profileContainer .form-group {
+  margin: 15px 0;
+}
+
+@media only screen and (max-width: 768px) {
+  .profileContainer {
+    flex-direction: column-reverse;
+  }
+}

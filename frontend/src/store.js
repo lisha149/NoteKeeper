@@ -5,7 +5,11 @@ import {
   noteListReducer,
   noteUpdateReducer,
 } from "./reducers/notesReducers";
-import { userLoginReducer, userRegisterReducer } from "./reducers/userReducers";
+import {
+  userLoginReducer,
+  userRegisterReducer,
+  userUpdateReducer,
+} from "./reducers/userReducers";
 const userInfoFromStorage = localStorage.getItem("userInfo")
   ? JSON.parse(localStorage.getItem("userInfo"))
   : null;
@@ -21,6 +25,7 @@ export const store = configureStore({
     noteCreate: noteCreateReducer,
     noteUpdate: noteUpdateReducer,
     noteDelete: noteDeleteReducer,
+    userUpdate: userUpdateReducer,
   },
   preloadedState,
 });
