@@ -1,0 +1,7 @@
+.createNoteContainer {
+  display: flex;
+  flex-direction: column;
+}
+.createNoteContainer .form-group {
+  margin: 15px 0;
+}

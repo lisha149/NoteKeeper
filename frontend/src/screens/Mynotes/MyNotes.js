@@ -1,18 +1,17 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Main from "../../components/Main";
 import Header from "../../components/Header";
 import { Link } from "react-router-dom";
-import { Button, Card, Badge } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import { useHistory } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
-import { listNotes } from "../../actions/notesActions";
+import { listNotes, deleteNoteAction } from "../../actions/notesActions";
 import ReactMarkdown from "react-markdown";
 const MyNotes = () => {
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const noteList = useSelector((state) => state.noteList);
   const { loading, error, notes } = noteList;
@@ -20,17 +19,40 @@ const MyNotes = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const noteCreate = useSelector((state) => state.noteCreate);
+  const { success: successCreate } = noteCreate;
+
+  const noteUpdate = useSelector((state) => state.noteUpdate);
+  const { success: successUpdate } = noteUpdate;
+
+  const noteDelete = useSelector((state) => state.noteDelete);
+  const {
+    loading: loadingDelete,
+    error: errorDelete,
+    success: successDelete,
+  } = noteDelete;
+  const history = useHistory();
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
+      dispatch(deleteNoteAction(id));
     }
+    history.push("/mynotes");
+    window.location.reload();
   };
-  console.log(notes);
+
   useEffect(() => {
     dispatch(listNotes());
     if (!userInfo) {
       history.push("/");
     }
-  }, [dispatch, history, userInfo]);
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    successCreate,
+    successUpdate,
+    successDelete,
+  ]);
 
   return (
     <>
@@ -42,7 +64,13 @@ const MyNotes = () => {
           </Button>
         </Link>
         {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+        {errorDelete && (
+          <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
+        )}
+
         {loading && <Loading />}
+        {loadingDelete && <Loading />}
+
         {notes?.reverse().map((note) => (
           <Accordion key={note._id}>
             <Card style={{ margin: 10 }}>

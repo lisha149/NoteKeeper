@@ -1,0 +1,7 @@
+.updateNoteContainer {
+  display: flex;
+  flex-direction: column;
+}
+.updateNoteContainer .form-group {
+  margin: 15px 0;
+}
