@@ -60,7 +60,7 @@ const ProfilePage = ({ history }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     if (password === confirmPassword)
-      dispatch(updateProfile({ name, email, password, pic }));
+      dispatch(updateProfile({ name, password, pic }));
   };
 
   return (
