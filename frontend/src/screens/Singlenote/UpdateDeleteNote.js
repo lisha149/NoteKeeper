@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { updateNoteAction, deleteNoteAction } from "../../actions/notesActions";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
-import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router-dom";
 import "./Update.css";
 const UpdateNote = ({ match }) => {
@@ -95,14 +94,6 @@ const UpdateNote = ({ match }) => {
                   onChange={(e) => setContent(e.target.value)}
                 />
               </Form.Group>
-              {content && (
-                <Card>
-                  <Card.Header>Note Preview</Card.Header>
-                  <Card.Body>
-                    <ReactMarkdown>{content}</ReactMarkdown>
-                  </Card.Body>
-                </Card>
-              )}
 
               <Form.Group controlId="content">
                 <Form.Label>Category</Form.Label>

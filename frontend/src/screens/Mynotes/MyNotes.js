@@ -29,9 +29,10 @@ const MyNotes = () => {
   const {
     loading: loadingDelete,
     error: errorDelete,
-    success: successDelete,
+    succes: successDelete,
   } = noteDelete;
   const history = useHistory();
+
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
       dispatch(deleteNoteAction(id));

@@ -67,15 +67,6 @@ const CreateNote = () => {
                 />
               </Form.Group>
 
-              {content && (
-                <Card>
-                  <Card.Header>Note Preview</Card.Header>
-                  <Card.Body>
-                    <ReactMarkdown>{content}</ReactMarkdown>
-                  </Card.Body>
-                </Card>
-              )}
-
               <Form.Group controlId="content">
                 <Form.Label>Category</Form.Label>
                 <Form.Control
@@ -103,7 +94,7 @@ const CreateNote = () => {
                 variant="danger"
                 style={{ flexDirection: "row", marginTop: 10 }}
               >
-                Reset Feilds
+                Clear
               </Button>
             </Form>
           </Card.Body>
