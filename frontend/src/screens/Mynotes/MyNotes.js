@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Main from "../../components/Main";
-import Header from "../../components/Header";
 import { Link } from "react-router-dom";
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, Container } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import { useHistory } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
@@ -10,7 +9,7 @@ import Loading from "../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { listNotes, deleteNoteAction } from "../../actions/notesActions";
 import ReactMarkdown from "react-markdown";
-const MyNotes = () => {
+const MyNotes = ({ search }) => {
   const dispatch = useDispatch();
 
   const noteList = useSelector((state) => state.noteList);
@@ -37,8 +36,6 @@ const MyNotes = () => {
     if (window.confirm("Are you sure you want to delete?")) {
       dispatch(deleteNoteAction(id));
     }
-    history.push("/mynotes");
-    window.location.reload();
   };
 
   useEffect(() => {
@@ -56,8 +53,7 @@ const MyNotes = () => {
   ]);
 
   return (
-    <>
-      <Header />
+    <Container>
       <Main title={`Welcome ${userInfo.name} `}>
         <Link to="createnote">
           <Button style={{ marginLeft: 10, marginBottom: 6 }} size="lg">
@@ -72,58 +68,67 @@ const MyNotes = () => {
         {loading && <Loading />}
         {loadingDelete && <Loading />}
 
-        {notes?.reverse().map((note) => (
-          <Accordion key={note._id}>
-            <Card style={{ margin: 10 }}>
-              <Card.Header style={{ display: "flex" }}>
-                <span
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                    flex: 1,
-                    cursor: "pointer",
-                    alignSelf: "center",
-                    fontSize: 18,
-                  }}
-                >
-                  <Accordion.Toggle as={Card.Text} variant="link" eventKey="0">
-                    {note.title}
-                  </Accordion.Toggle>
-                </span>
-                <div>
-                  <Button href={`/note/${note._id}`}>Edit</Button>
-                  <Button
-                    variant="danger"
-                    className="mx-2"
-                    onClick={() => deleteHandler(note._id)}
+        {notes
+          ?.filter((filteredNote) =>
+            filteredNote.title.toLowerCase().includes(search.toLowerCase())
+          )
+          .reverse()
+          .map((note) => (
+            <Accordion key={note._id}>
+              <Card style={{ margin: 10 }}>
+                <Card.Header style={{ display: "flex" }}>
+                  <span
+                    style={{
+                      color: "black",
+                      textDecoration: "none",
+                      flex: 1,
+                      cursor: "pointer",
+                      alignSelf: "center",
+                      fontSize: 18,
+                    }}
                   >
-                    Delete
-                  </Button>
-                </div>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <h4>
-                    <span class="badge rounded-pill bg-info">
-                      Category -{note.category}
-                    </span>
-                  </h4>
-                  <blockquote className="blockquote mb-0">
-                    <ReactMarkdown>{note.content}</ReactMarkdown>
-                    <footer className="blockquote-footer">
-                      Created on{" "}
-                      <cite title="Source Title">
-                        {note.createdAt.substring(0, 10)}
-                      </cite>
-                    </footer>
-                  </blockquote>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
-        ))}
+                    <Accordion.Toggle
+                      as={Card.Text}
+                      variant="link"
+                      eventKey="0"
+                    >
+                      {note.title}
+                    </Accordion.Toggle>
+                  </span>
+                  <div>
+                    <Button href={`/note/${note._id}`}>Edit</Button>
+                    <Button
+                      variant="danger"
+                      className="mx-2"
+                      onClick={() => deleteHandler(note._id)}
+                    >
+                      Delete
+                    </Button>
+                  </div>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    <h4>
+                      <span class="badge rounded-pill bg-info">
+                        Category -{note.category}
+                      </span>
+                    </h4>
+                    <blockquote className="blockquote mb-0">
+                      <ReactMarkdown>{note.content}</ReactMarkdown>
+                      <footer className="blockquote-footer">
+                        Created on{" "}
+                        <cite title="Source Title">
+                          {note.createdAt.substring(0, 10)}
+                        </cite>
+                      </footer>
+                    </blockquote>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          ))}
       </Main>
-    </>
+    </Container>
   );
 };
 

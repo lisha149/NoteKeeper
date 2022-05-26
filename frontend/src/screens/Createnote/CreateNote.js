@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import Main from "../../components/Main";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNoteAction } from "../../actions/notesActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
-import ReactMarkdown from "react-markdown";
 import { useHistory } from "react-router-dom";
 
 import "./CreateNote.css";
@@ -33,7 +32,6 @@ const CreateNote = () => {
     dispatch(createNoteAction(title, content, category));
 
     history.push("/mynotes");
-    window.location.reload();
     resetHandler();
   };
 
