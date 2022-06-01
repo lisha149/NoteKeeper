@@ -44,7 +44,7 @@ const Header = ({ setSearch }) => {
             )}
           </Nav>
           <Nav style={{ maxHeight: "100px" }} basic-navbar-nav>
-            {userInfo && (
+            {userInfo ? (
               <>
                 <Nav.Link>
                   <Link to="mynotes">My Notes</Link>
@@ -57,11 +57,17 @@ const Header = ({ setSearch }) => {
                     My Profile
                   </NavDropdown.Item>
                   <NavDropdown.Divider />
+                  <NavDropdown.Item href="/change-password">
+                    Change Password
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
                   <NavDropdown.Item onClick={logoutHandler}>
                     Logout
                   </NavDropdown.Item>
                 </NavDropdown>
               </>
+            ) : (
+              <Nav.Link href="/login">Login</Nav.Link>
             )}
           </Nav>
         </Navbar.Collapse>

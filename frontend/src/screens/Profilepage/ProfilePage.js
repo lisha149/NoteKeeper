@@ -10,8 +10,6 @@ const ProfilePage = ({ history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [pic, setPic] = useState();
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
   const [picMessage, setPicMessage] = useState();
 
   const dispatch = useDispatch();
@@ -58,8 +56,7 @@ const ProfilePage = ({ history }) => {
 
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password === confirmPassword)
-      dispatch(updateProfile({ name, password, pic }));
+    dispatch(updateProfile({ name, pic }));
   };
 
   return (
@@ -93,24 +90,6 @@ const ProfilePage = ({ history }) => {
                   onChange={(e) => setEmail(e.target.value)}
                 ></Form.Control>
               </Form.Group>
-              <Form.Group controlId="password">
-                <Form.Label>Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Enter Password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                ></Form.Control>
-              </Form.Group>
-              <Form.Group controlId="confirmPassword">
-                <Form.Label>Confirm Password</Form.Label>
-                <Form.Control
-                  type="password"
-                  placeholder="Confirm Password"
-                  value={confirmPassword}
-                  onChange={(e) => setConfirmPassword(e.target.value)}
-                ></Form.Control>
-              </Form.Group>{" "}
               {picMessage && (
                 <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
               )}

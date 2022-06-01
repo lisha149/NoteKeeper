@@ -8,6 +8,7 @@ import {
 import {
   userLoginReducer,
   userRegisterReducer,
+  userUpdatePwReducer,
   userUpdateReducer,
 } from "./reducers/userReducers";
 const userInfoFromStorage = localStorage.getItem("userInfo")
@@ -26,6 +27,7 @@ export const store = configureStore({
     noteUpdate: noteUpdateReducer,
     noteDelete: noteDeleteReducer,
     userUpdate: userUpdateReducer,
+    userUpdatePw: userUpdatePwReducer,
   },
   preloadedState,
 });
