@@ -32,9 +32,7 @@ const ChangePassword = () => {
     if (password === confirmPassword)
       dispatch(updatePassword(oldPassword, password));
     else {
-      <ErrorMessage variant="danger">
-        New Password and Confirm Password donot match
-      </ErrorMessage>;
+      <ErrorMessage variant="danger">Password donot match</ErrorMessage>;
     }
   };
 

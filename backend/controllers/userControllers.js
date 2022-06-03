@@ -84,29 +84,21 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 const updateUserPassword = asyncHandler(async (req, res) => {
   const { old_password, password } = req.body;
   try {
-    console.log(old_password);
-    console.log(password);
-    console.log("Before User find");
     const user = await User.findById(req.user._id);
-    // if (!user) {
-    //   console.log("User not found");
-    //   res.status(400);
-    //   throw new Error("User not found");
-    // }
-    console.log("User found");
+    if (!user) {
+      return res.status(400).json({ message: "User already exists." });
+    }
     // validate old password
     const isValidPassword = await user.matchPassword(old_password);
-    console.log(isValidPassword);
     if (!isValidPassword) {
-      res.status(400);
-      throw new Error("Please enter correct old password");
+      return res
+        .status(400)
+        .json({ message: "Please enter correct old password." });
     }
-
     if (req.body.password) {
       user.password = req.body.password;
     } else {
-      res.status(400);
-      throw new Error("Password Required");
+      return res.status(400).json({ message: "Password Required" });
     }
     const updatedUserPw = await user.save();
     return res.json({
@@ -118,9 +110,7 @@ const updateUserPassword = asyncHandler(async (req, res) => {
       token: generateToken(updatedUserPw._id),
     });
   } catch (error) {
-    console.log(error);
-    res.status(500);
-    throw new Error("Something went wrong. Try again");
+    return res.status(500).json({ message: "Something went wrong" });
   }
 });
 
