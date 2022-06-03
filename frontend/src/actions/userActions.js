@@ -116,7 +116,7 @@ export const updateProfile = (user) => async (dispatch, getState) => {
 };
 
 export const updatePassword =
-  (old_password, password) => async (dispatch, getState) => {
+  (old_password, password, confirm_password) => async (dispatch, getState) => {
     try {
       dispatch({ type: USER_UPDATEPW_REQUEST });
 
@@ -133,7 +133,7 @@ export const updatePassword =
 
       const { data } = await axios.post(
         "/api/auth/change-password",
-        { old_password, password },
+        { old_password, password, confirm_password },
         config
       );
 

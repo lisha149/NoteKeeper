@@ -26,14 +26,15 @@ const ChangePassword = () => {
       history.push("/");
     }
   }, [history, userInfo]);
-
   const submitHandler = (e) => {
     e.preventDefault();
-    if (password === confirmPassword)
-      dispatch(updatePassword(oldPassword, password));
-    else {
-      <ErrorMessage variant="danger">Password donot match</ErrorMessage>;
-    }
+    dispatch(updatePassword(oldPassword, password, confirmPassword));
+    resetHandler();
+  };
+  const resetHandler = () => {
+    setOldPassword("");
+    setPassword("");
+    setConfirmPassword("");
   };
 
   return (

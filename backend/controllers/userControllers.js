@@ -82,7 +82,7 @@ const updateUserProfile = asyncHandler(async (req, res) => {
 });
 
 const updateUserPassword = asyncHandler(async (req, res) => {
-  const { old_password, password } = req.body;
+  const { old_password, password, confirm_password } = req.body;
   try {
     const user = await User.findById(req.user._id);
     if (!user) {
@@ -100,6 +100,11 @@ const updateUserPassword = asyncHandler(async (req, res) => {
     } else {
       return res.status(400).json({ message: "Password Required" });
     }
+
+    if (req.body.password != req.body.confirm_password) {
+      return res.status(400).json({ message: "Password donot match" });
+    }
+
     const updatedUserPw = await user.save();
     return res.json({
       _id: updatedUserPw._id,
