@@ -13,6 +13,7 @@ const UpdateNote = ({ match }) => {
   const [content, setContent] = useState();
   const [category, setCategory] = useState();
   const [date, setDate] = useState("");
+  const [visibility, setVisibility] = useState("");
 
   const history = useHistory();
   // hook
@@ -104,6 +105,31 @@ const UpdateNote = ({ match }) => {
                   onChange={(e) => setCategory(e.target.value)}
                 />
               </Form.Group>
+
+              <Form.Group controlId="visibility">
+                <Form.Label>Visibility</Form.Label>
+                {["radio"].map((type) => (
+                  <div key={`inline-${type}`} className="mb-3">
+                    <Form.Check
+                      inline
+                      label="Public"
+                      name="group"
+                      type={type}
+                      id={`inline-${type}-1`}
+                      onChange={(e) => setVisibility(e.target.value)}
+                    />
+                    <Form.Check
+                      inline
+                      label="Private"
+                      name="group"
+                      type={type}
+                      id={`inline-${type}-2`}
+                      onChange={(e) => setVisibility(e.target.value)}
+                    />
+                  </div>
+                ))}
+              </Form.Group>
+
               {loading && <Loading size={50} />}
               <Button
                 variant="primary"
@@ -112,6 +138,7 @@ const UpdateNote = ({ match }) => {
               >
                 Update Note
               </Button>
+
               <Button
                 className="mx-2"
                 variant="danger"

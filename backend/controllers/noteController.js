@@ -2,18 +2,29 @@ const Note = require("../models/noteModel");
 const asyncHandler = require("express-async-handler");
 
 const getNotes = asyncHandler(async (req, res) => {
-  const notes = await Note.find({ user: req.user._id });
+  const query = {
+    $or: [{ user: req.user._id }, { visibility: "PUBLIC" }],
+  };
+  // const notes = await Note.find({ user: req.user._id, visibility: "PUBLIC" });
+  const notes = await Note.find(query);
+  const ownNotes = await Note.find({ user: req.user._id });
   res.json(notes);
 });
 
 const createNote = asyncHandler(async (req, res) => {
-  const { title, content, category } = req.body;
+  const { title, content, category, visibility } = req.body;
 
   if (!title || !content || !category) {
     res.status(400);
     throw new Error("Please fill in all the feilds");
   } else {
-    const note = new Note({ user: req.user._id, title, content, category });
+    const note = new Note({
+      user: req.user._id,
+      title,
+      content,
+      category,
+      visibility,
+    });
 
     const createdNote = await note.save();
 
@@ -31,8 +42,8 @@ const getNoteById = asyncHandler(async (req, res) => {
 
   res.json(note);
 });
-const UpdateNote = asyncHandler(async (req, res) => {
-  const { title, content, category } = req.body;
+const updateNote = asyncHandler(async (req, res) => {
+  const { title, content, category, visibility } = req.body;
 
   const note = await Note.findById(req.params.id);
 
@@ -45,6 +56,7 @@ const UpdateNote = asyncHandler(async (req, res) => {
     note.title = title;
     note.content = content;
     note.category = category;
+    note.visibility = visibility;
 
     const updatedNote = await note.save();
     res.json(updatedNote);
@@ -54,7 +66,7 @@ const UpdateNote = asyncHandler(async (req, res) => {
   }
 });
 
-const DeleteNote = asyncHandler(async (req, res) => {
+const deleteNote = asyncHandler(async (req, res) => {
   const note = await Note.findById(req.params.id);
 
   if (note.user.toString() !== req.user._id.toString()) {
@@ -70,4 +82,4 @@ const DeleteNote = asyncHandler(async (req, res) => {
     throw new Error("Note not Found");
   }
 });
-module.exports = { getNotes, createNote, getNoteById, UpdateNote, DeleteNote };
+module.exports = { getNotes, createNote, getNoteById, updateNote, deleteNote };

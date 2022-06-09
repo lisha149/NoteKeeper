@@ -3,8 +3,8 @@ const {
   getNotes,
   createNote,
   getNoteById,
-  UpdateNote,
-  DeleteNote,
+  updateNote,
+  deleteNote,
 } = require("../controllers/noteController");
 const protect = require("../middlewares/authMiddleware");
 
@@ -14,6 +14,6 @@ router.route("/create").post(protect, createNote);
 router
   .route("/:id")
   .get(getNoteById)
-  .put(protect, UpdateNote)
-  .delete(protect, DeleteNote);
+  .put(protect, updateNote)
+  .delete(protect, deleteNote);
 module.exports = router;

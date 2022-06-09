@@ -13,6 +13,11 @@ const noteSchema = mongoose.Schema(
       type: String,
       required: true,
     },
+    visibility: {
+      type: String,
+      enum: ["PUBLIC", "PRIVATE"],
+      default: "PRIVATE",
+    },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,
