@@ -18,6 +18,11 @@ const noteSchema = mongoose.Schema(
       enum: ["PUBLIC", "PRIVATE"],
       default: "PRIVATE",
     },
+    // dbstatus: {
+    //   type: String,
+    //   enum: ["PUBLISHED", "DRAFT"],
+    //   default: "DRAFT",
+    // },
     user: {
       type: mongoose.Schema.Types.ObjectId,
       required: true,

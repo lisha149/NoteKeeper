@@ -82,18 +82,16 @@ const CreateNote = () => {
                 <Form.Label>Visibility</Form.Label>
                 <Form.Check>
                   {status.map((result) => (
-                    <div className="mb-3">
-                      <>
-                        <input
-                          type="radio"
-                          value={result}
-                          name="radiovalues"
-                          checked={visibility === result}
-                          onChange={(e) => setVisibility(e.target.value)}
-                        />
-                        {result}
-                      </>
-                    </div>
+                    <>
+                      <input
+                        type="radio"
+                        value={result}
+                        name="radiovalues"
+                        checked={visibility === result}
+                        onChange={(e) => setVisibility(e.target.value)}
+                      />
+                      {result}
+                    </>
                   ))}
                   {/* <h5>{visibility}</h5> */}
                 </Form.Check>
@@ -108,6 +106,16 @@ const CreateNote = () => {
                 onClick={submitHandler}
               >
                 Create Note
+              </Button>
+
+              <Button
+                type="submit"
+                className="mx-2"
+                variant="info"
+                style={{ flexDirection: "row", marginTop: 10 }}
+                // onClick={submitHandler}
+              >
+                Save as draft
               </Button>
 
               <Button

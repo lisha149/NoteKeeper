@@ -5,7 +5,6 @@ const getNotes = asyncHandler(async (req, res) => {
   const query = {
     $or: [{ user: req.user._id }, { visibility: "PUBLIC" }],
   };
-  // const notes = await Note.find({ user: req.user._id, visibility: "PUBLIC" });
   const notes = await Note.find(query);
   const ownNotes = await Note.find({ user: req.user._id });
   res.json(notes);

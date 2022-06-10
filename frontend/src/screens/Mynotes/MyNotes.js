@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Main from "../../components/Main";
 import { Link } from "react-router-dom";
 import { Button, Card, Container } from "react-bootstrap";
@@ -9,6 +9,11 @@ import Loading from "../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { listNotes, deleteNoteAction } from "../../actions/notesActions";
 import ReactMarkdown from "react-markdown";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
+import PublicIcon from "@mui/icons-material/Public";
+// import { MdOutlinePublic } from "react-icons/md";
+// import AiOutlineLock from "react-icons/ai";
 const MyNotes = ({ search }) => {
   const dispatch = useDispatch();
 
@@ -28,7 +33,7 @@ const MyNotes = ({ search }) => {
   const {
     loading: loadingDelete,
     error: errorDelete,
-    succes: successDelete,
+    success: successDelete,
   } = noteDelete;
   const history = useHistory();
 
@@ -38,7 +43,13 @@ const MyNotes = ({ search }) => {
       window.location.reload();
     }
   };
-
+  // const iconHandler = (id) => {
+  //   if (notes.visibility == "PUBLIC") {
+  //     <PublicOutlinedIcon />;
+  //   } else {
+  //     <LockOutlinedIcon />;
+  //   }
+  // };
   useEffect(() => {
     dispatch(listNotes());
     if (!userInfo) {
@@ -52,7 +63,7 @@ const MyNotes = ({ search }) => {
     successUpdate,
     successDelete,
   ]);
-
+  // const [icon, setIcon] = useState(LockOutlinedIcon);
   return (
     <Container>
       <Main title={`Welcome ${userInfo.name} `}>
@@ -93,10 +104,16 @@ const MyNotes = ({ search }) => {
                       variant="link"
                       eventKey="0"
                     >
+                      {note.visibility.toLowerCase() == "private" ? (
+                        <LockOutlinedIcon />
+                      ) : (
+                        <PublicOutlinedIcon />
+                      )}
+                      {/* <LockOutlinedIcon /> */}
                       {note.title}
                     </Accordion.Toggle>
                   </span>
-                  <div>
+                  <>
                     <Button href={`/note/${note._id}`}>Edit</Button>
                     <Button
                       variant="danger"
@@ -105,7 +122,7 @@ const MyNotes = ({ search }) => {
                     >
                       Delete
                     </Button>
-                  </div>
+                  </>
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
