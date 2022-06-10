@@ -113,16 +113,18 @@ const MyNotes = ({ search }) => {
                       {note.title}
                     </Accordion.Toggle>
                   </span>
-                  <>
-                    <Button href={`/note/${note._id}`}>Edit</Button>
-                    <Button
-                      variant="danger"
-                      className="mx-2"
-                      onClick={() => deleteHandler(note._id)}
-                    >
-                      Delete
-                    </Button>
-                  </>
+                  {userInfo._id == note.user ? (
+                    <>
+                      <Button href={`/note/${note._id}`}>Edit</Button>
+                      <Button
+                        variant="danger"
+                        className="mx-2"
+                        onClick={() => deleteHandler(note._id)}
+                      >
+                        Delete
+                      </Button>
+                    </>
+                  ) : null}
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
