@@ -13,7 +13,7 @@ const UpdateNote = ({ match }) => {
   const [content, setContent] = useState();
   const [category, setCategory] = useState();
   const [date, setDate] = useState("");
-  const [visibility, setVisibility] = useState("");
+  const [visibility, setVisibility] = useState("PRIVATE");
 
   const history = useHistory();
   // hook
@@ -61,7 +61,7 @@ const UpdateNote = ({ match }) => {
     history.push("/mynotes");
     window.location.reload();
   };
-
+  let status = ["PUBLIC", "PRIVATE"];
   return (
     <Main title="Edit Note">
       <div className="updateNoteContainer">
@@ -108,26 +108,23 @@ const UpdateNote = ({ match }) => {
 
               <Form.Group controlId="visibility">
                 <Form.Label>Visibility</Form.Label>
-                {["radio"].map((type) => (
-                  <div key={`inline-${type}`} className="mb-3">
-                    <Form.Check
-                      inline
-                      label="Public"
-                      name="group"
-                      type={type}
-                      id={`inline-${type}-1`}
-                      onChange={(e) => setVisibility(e.target.value)}
-                    />
-                    <Form.Check
-                      inline
-                      label="Private"
-                      name="group"
-                      type={type}
-                      id={`inline-${type}-2`}
-                      onChange={(e) => setVisibility(e.target.value)}
-                    />
-                  </div>
-                ))}
+                <Form.Check>
+                  {status.map((result) => (
+                    <div className="mb-3">
+                      <>
+                        <input
+                          type="radio"
+                          value={result}
+                          name="radiovalues"
+                          checked={visibility === result}
+                          onChange={(e) => setVisibility(e.target.value)}
+                        />
+                        {result}
+                      </>
+                    </div>
+                  ))}
+                  {/* <h5>{visibility}</h5> */}
+                </Form.Check>
               </Form.Group>
 
               {loading && <Loading size={50} />}

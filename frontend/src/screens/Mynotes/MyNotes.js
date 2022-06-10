@@ -35,6 +35,7 @@ const MyNotes = ({ search }) => {
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
       dispatch(deleteNoteAction(id));
+      window.location.reload();
     }
   };
 
