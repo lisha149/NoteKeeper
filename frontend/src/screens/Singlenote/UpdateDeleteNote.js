@@ -13,7 +13,7 @@ const UpdateNote = ({ match }) => {
   const [content, setContent] = useState();
   const [category, setCategory] = useState();
   const [date, setDate] = useState("");
-  const [visibility, setVisibility] = useState("PRIVATE");
+  const [visibility, setVisibility] = useState();
 
   const history = useHistory();
   // hook
@@ -41,6 +41,7 @@ const UpdateNote = ({ match }) => {
       setContent(data.content);
       setCategory(data.category);
       setDate(data.updatedAt);
+      setVisibility(data.visibility);
     };
 
     fetching();
@@ -54,7 +55,9 @@ const UpdateNote = ({ match }) => {
 
   const updateHandler = (e) => {
     e.preventDefault();
-    dispatch(updateNoteAction(match.params.id, title, content, category));
+    dispatch(
+      updateNoteAction(match.params.id, title, content, category, visibility)
+    );
     if (!title || !content || !category) return;
 
     resetHandler();
