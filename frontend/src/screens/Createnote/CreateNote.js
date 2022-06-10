@@ -83,21 +83,6 @@ const CreateNote = () => {
 
               <Form.Group controlId="visibility">
                 <Form.Label>Visibility</Form.Label>
-                {/* <Form.Check className="mb-3">
-                  {status.map((result) => (
-                    <>
-                      <input
-                        type="radio"
-                        value={result}
-                        name="radiovalues"
-                        checked={visibility === result}
-                        onChange={(e) => setVisibility(e.target.value)}
-                      />
-                      {result}
-                    </>
-                  ))}
-                  {/* <h5>{visibility}</h5> */}
-                {/* /</Form.Check>  */}
 
                 {["radio"].map((type) => (
                   <div className="mb-3">
