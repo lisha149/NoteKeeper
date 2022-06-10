@@ -38,7 +38,9 @@ const CreateNote = () => {
     history.push("/mynotes");
     resetHandler();
   };
-
+  const handleChange = (event) => {
+    setVisibility(event.target.value);
+  };
   return (
     <Main title="Create a Note">
       <div className="createNoteContainer">
@@ -81,7 +83,7 @@ const CreateNote = () => {
 
               <Form.Group controlId="visibility">
                 <Form.Label>Visibility</Form.Label>
-                <Form.Check>
+                {/* <Form.Check className="mb-3">
                   {status.map((result) => (
                     <>
                       <input
@@ -95,7 +97,29 @@ const CreateNote = () => {
                     </>
                   ))}
                   {/* <h5>{visibility}</h5> */}
-                </Form.Check>
+                {/* /</Form.Check>  */}
+
+                {["radio"].map((type) => (
+                  <div className="mb-3">
+                    <Form.Check
+                      inline
+                      type={type}
+                      id={`default-${type}`}
+                      name="visibility"
+                      label={"Public"}
+                      onChange={(e) => setVisibility(e.target.value)}
+                    />
+                    <Form.Check
+                      inline
+                      type={type}
+                      id={`default-${type}`}
+                      name="visibility"
+                      label={`Private`}
+                      checked={true}
+                      onChange={(e) => setVisibility(e.target.value)}
+                    />
+                  </div>
+                ))}
               </Form.Group>
 
               {loading && <Loading size={50} />}
