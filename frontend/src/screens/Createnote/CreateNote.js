@@ -15,8 +15,6 @@ const CreateNote = () => {
   const [category, setCategory] = useState("");
   const [visibility, setVisibility] = useState("PRIVATE");
 
-  let status = ["PUBLIC", "PRIVATE"];
-
   const dispatch = useDispatch();
 
   const noteCreate = useSelector((state) => state.noteCreate);
@@ -83,28 +81,19 @@ const CreateNote = () => {
 
               <Form.Group controlId="visibility">
                 <Form.Label>Visibility</Form.Label>
-
-                {["radio"].map((type) => (
-                  <div className="mb-3">
+                <div className="mb-3">
+                  {["Public", "Private"].map((status) => (
                     <Form.Check
                       inline
-                      type={type}
-                      id={`default-${type}`}
+                      type="radio"
+                      id={`default-radio-1`}
                       name="visibility"
-                      label={"Public"}
-                      onChange={(e) => setVisibility(e.target.value)}
+                      label={status}
+                      onChange={(e) => setVisibility(status.toUpperCase())}
+                      checked={visibility.toLowerCase() == status.toLowerCase()}
                     />
-                    <Form.Check
-                      inline
-                      type={type}
-                      id={`default-${type}`}
-                      name="visibility"
-                      label={`Private`}
-                      checked={true}
-                      onChange={(e) => setVisibility(e.target.value)}
-                    />
-                  </div>
-                ))}
+                  ))}
+                </div>
               </Form.Group>
 
               {loading && <Loading size={50} />}
@@ -115,7 +104,7 @@ const CreateNote = () => {
                 style={{ flexDirection: "row", marginTop: 10 }}
                 onClick={submitHandler}
               >
-                Create Note
+                Publish
               </Button>
 
               <Button

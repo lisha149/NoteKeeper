@@ -110,28 +110,19 @@ const UpdateNote = ({ match }) => {
 
               <Form.Group controlId="visibility">
                 <Form.Label>Visibility</Form.Label>
-                {["radio"].map((type) => (
-                  <div className="mb-3">
+                <div className="mb-3">
+                  {["Public", "Private"].map((status) => (
                     <Form.Check
                       inline
-                      type={type}
-                      id={`default-${type}-1`}
+                      type="radio"
+                      id={`default-radio-1`}
                       name="visibility"
-                      label={"Public"}
-                      checked={visibility.toLowerCase() == "public"}
-                      onChange={(e) => setVisibility("PUBLIC")}
+                      label={status}
+                      checked={visibility.toLowerCase() == status.toLowerCase()}
+                      onChange={(e) => setVisibility(status.toUpperCase())}
                     />
-                    <Form.Check
-                      inline
-                      type={type}
-                      id={`default-${type}-2`}
-                      name="visibility"
-                      label={`Private`}
-                      checked={visibility.toLowerCase() == "private"}
-                      onChange={(e) => setVisibility("PRIVATE")}
-                    />
-                  </div>
-                ))}
+                  ))}
+                </div>
               </Form.Group>
 
               {loading && <Loading size={50} />}
