@@ -13,7 +13,7 @@ const UpdateNote = ({ match }) => {
   const [content, setContent] = useState();
   const [category, setCategory] = useState();
   const [date, setDate] = useState("");
-  const [visibility, setVisibility] = useState();
+  const [visibility, setVisibility] = useState("");
 
   const history = useHistory();
   // hook
@@ -64,7 +64,6 @@ const UpdateNote = ({ match }) => {
     history.push("/mynotes");
     window.location.reload();
   };
-  let status = ["PUBLIC", "PRIVATE"];
   return (
     <Main title="Edit Note">
       <div className="updateNoteContainer">
@@ -111,23 +110,28 @@ const UpdateNote = ({ match }) => {
 
               <Form.Group controlId="visibility">
                 <Form.Label>Visibility</Form.Label>
-                <Form.Check>
-                  {status.map((result) => (
-                    <div className="mb-3">
-                      <>
-                        <input
-                          type="radio"
-                          value={result}
-                          name="radiovalues"
-                          checked={visibility === result}
-                          onChange={(e) => setVisibility(e.target.value)}
-                        />
-                        {result}
-                      </>
-                    </div>
-                  ))}
-                  {/* <h5>{visibility}</h5> */}
-                </Form.Check>
+                {["radio"].map((type) => (
+                  <div className="mb-3">
+                    <Form.Check
+                      inline
+                      type={type}
+                      id={`default-${type}-1`}
+                      name="visibility"
+                      label={"Public"}
+                      checked={visibility.toLowerCase() == "public"}
+                      onChange={(e) => setVisibility("PUBLIC")}
+                    />
+                    <Form.Check
+                      inline
+                      type={type}
+                      id={`default-${type}-2`}
+                      name="visibility"
+                      label={`Private`}
+                      checked={visibility.toLowerCase() == "private"}
+                      onChange={(e) => setVisibility("PRIVATE")}
+                    />
+                  </div>
+                ))}
               </Form.Group>
 
               {loading && <Loading size={50} />}
