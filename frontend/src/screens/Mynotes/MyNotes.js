@@ -11,9 +11,8 @@ import { listNotes, deleteNoteAction } from "../../actions/notesActions";
 import ReactMarkdown from "react-markdown";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
-import PublicIcon from "@mui/icons-material/Public";
-// import { MdOutlinePublic } from "react-icons/md";
-// import AiOutlineLock from "react-icons/ai";
+import "./MyNotes.css";
+
 const MyNotes = ({ search }) => {
   const dispatch = useDispatch();
 
@@ -103,28 +102,17 @@ const MyNotes = ({ search }) => {
                       as={Card.Text}
                       variant="link"
                       eventKey="0"
+                      className="grid-container"
                     >
                       {note.visibility.toLowerCase() == "private" ? (
-                        <LockOutlinedIcon />
+                        <LockOutlinedIcon className="head" />
                       ) : (
-                        <PublicOutlinedIcon />
+                        <PublicOutlinedIcon className="head" />
                       )}
                       {/* <LockOutlinedIcon /> */}
                       {note.title}
                     </Accordion.Toggle>
                   </span>
-                  {userInfo._id == note.user ? (
-                    <>
-                      <Button href={`/note/${note._id}`}>Edit</Button>
-                      <Button
-                        variant="danger"
-                        className="mx-2"
-                        onClick={() => deleteHandler(note._id)}
-                      >
-                        Delete
-                      </Button>
-                    </>
-                  ) : null}
                 </Card.Header>
                 <Accordion.Collapse eventKey="0">
                   <Card.Body>
@@ -135,6 +123,20 @@ const MyNotes = ({ search }) => {
                     </h4>
                     <blockquote className="blockquote mb-0">
                       <ReactMarkdown>{note.content}</ReactMarkdown>
+                      {userInfo._id == note.user ? (
+                        <>
+                          <Button className="mx-2" href={`/note/${note._id}`}>
+                            Edit
+                          </Button>
+                          <Button
+                            variant="danger"
+                            className="mx-2"
+                            onClick={() => deleteHandler(note._id)}
+                          >
+                            Delete
+                          </Button>
+                        </>
+                      ) : null}
                       <footer className="blockquote-footer">
                         Created on{" "}
                         <cite title="Source Title">

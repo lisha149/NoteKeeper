@@ -1,0 +1,17 @@
+.mx-2 {
+  height: 40px;
+}
+.blockquote-footer {
+  margin-top: 10px;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 10px auto;
+  gap: 20px;
+  padding: 5px;
+  align-items: center;
+}
+.head {
+  display: grid, inline-grid;
+  grid-template-columns: 10px auto;
+}

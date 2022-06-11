@@ -1,12 +1,13 @@
 const Note = require("../models/noteModel");
 const asyncHandler = require("express-async-handler");
+const User = require("../models/userModel");
+const ObjectId = require("mongodb").ObjectId;
 
 const getNotes = asyncHandler(async (req, res) => {
   const query = {
     $or: [{ user: req.user._id }, { visibility: "PUBLIC" }],
   };
   const notes = await Note.find(query);
-  const ownNotes = await Note.find({ user: req.user._id });
   res.json(notes);
 });
 
@@ -18,7 +19,7 @@ const createNote = asyncHandler(async (req, res) => {
     throw new Error("Please fill in all the feilds");
   } else {
     const note = new Note({
-      user: req.user._id,
+      user: req.user,
       title,
       content,
       category,

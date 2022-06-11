@@ -23,8 +23,13 @@ const noteSchema = mongoose.Schema(
     //   enum: ["PUBLISHED", "DRAFT"],
     //   default: "DRAFT",
     // },
+    // user: {
+    //   type: mongoose.Schema.Types.ObjectId,
+    //   required: true,
+    //   ref: "User",
+    // },
     user: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: Object,
       required: true,
       ref: "User",
     },
