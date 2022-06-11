@@ -12,7 +12,7 @@ const getNotes = asyncHandler(async (req, res) => {
 });
 
 const createNote = asyncHandler(async (req, res) => {
-  const { title, content, category, visibility } = req.body;
+  const { title, content, category, visibility, status } = req.body;
 
   if (!title || !content || !category) {
     res.status(400);
@@ -24,6 +24,7 @@ const createNote = asyncHandler(async (req, res) => {
       content,
       category,
       visibility,
+      status,
     });
 
     const createdNote = await note.save();
