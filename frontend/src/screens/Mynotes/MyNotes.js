@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Main from "../../components/Main";
 import { Link } from "react-router-dom";
 import { Button, Card, Container } from "react-bootstrap";
@@ -42,13 +42,7 @@ const MyNotes = ({ search }) => {
       window.location.reload();
     }
   };
-  // const iconHandler = (id) => {
-  //   if (notes.visibility == "PUBLIC") {
-  //     <PublicOutlinedIcon />;
-  //   } else {
-  //     <LockOutlinedIcon />;
-  //   }
-  // };
+
   useEffect(() => {
     dispatch(listNotes());
     if (!userInfo) {
@@ -104,13 +98,18 @@ const MyNotes = ({ search }) => {
                       eventKey="0"
                       className="grid-container"
                     >
-                      {note.visibility.toLowerCase() == "private" ? (
+                      {note.visibility.toLowerCase() === "private" ? (
                         <LockOutlinedIcon className="head" />
                       ) : (
                         <PublicOutlinedIcon className="head" />
                       )}
-                      {/* <LockOutlinedIcon /> */}
-                      {note.title}
+                      <div>
+                        {note.title}
+                        <br />
+                        {note.user._id != userInfo._id ? (
+                          <i className="center">Owned by {note.user.name}</i>
+                        ) : null}
+                      </div>
                     </Accordion.Toggle>
                   </span>
                 </Card.Header>
@@ -123,7 +122,7 @@ const MyNotes = ({ search }) => {
                     </h4>
                     <blockquote className="blockquote mb-0">
                       <ReactMarkdown>{note.content}</ReactMarkdown>
-                      {userInfo._id == note.user ? (
+                      {userInfo._id === note.user ? (
                         <>
                           <Button className="mx-2" href={`/note/${note._id}`}>
                             Edit

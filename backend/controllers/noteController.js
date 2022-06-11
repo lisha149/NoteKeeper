@@ -31,6 +31,7 @@ const createNote = asyncHandler(async (req, res) => {
     res.status(201).json(createdNote);
   }
 });
+
 const getNoteById = asyncHandler(async (req, res) => {
   const note = await Note.findById(req.params.id);
 
