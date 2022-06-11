@@ -19,6 +19,9 @@ const MyDraft = () => {
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
 
+  const noteCreate = useSelector((state) => state.noteCreate);
+  const { success: successCreate } = noteCreate;
+
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { success: successUpdate } = noteUpdate;
 
@@ -29,6 +32,7 @@ const MyDraft = () => {
     success: successDelete,
   } = noteDelete;
   const history = useHistory();
+
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
       dispatch(deleteNoteAction(id));
@@ -41,7 +45,14 @@ const MyDraft = () => {
     if (!userInfo) {
       history.push("/");
     }
-  }, [dispatch, history, userInfo, successUpdate, successDelete]);
+  }, [
+    dispatch,
+    history,
+    userInfo,
+    successUpdate,
+    successDelete,
+    successCreate,
+  ]);
 
   return (
     <Container>

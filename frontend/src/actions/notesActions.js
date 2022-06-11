@@ -51,7 +51,8 @@ export const listNotes = (isDraft) => async (dispatch, getState) => {
 };
 
 export const createNoteAction =
-  (title, content, category, visibility) => async (dispatch, getState) => {
+  (title, content, category, visibility, status) =>
+  async (dispatch, getState) => {
     try {
       dispatch({
         type: NOTES_CREATE_REQUEST,
@@ -70,7 +71,7 @@ export const createNoteAction =
 
       const { data } = await axios.post(
         `/api/notes/create`,
-        { title, content, category, visibility },
+        { title, content, category, visibility, status },
         config
       );
 

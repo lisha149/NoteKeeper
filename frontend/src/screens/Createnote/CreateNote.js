@@ -13,7 +13,6 @@ const CreateNote = () => {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
   const [visibility, setVisibility] = useState("PRIVATE");
-  const [status, setStatus] = useState("PUBLISHED");
 
   const dispatch = useDispatch();
 
@@ -37,6 +36,12 @@ const CreateNote = () => {
     resetHandler();
   };
 
+  const draftSubmitHandler = (e) => {
+    e.preventDefault();
+    dispatch(createNoteAction(title, content, category, visibility, "DRAFT"));
+    history.push("/draft");
+    window.location.reload();
+  };
   return (
     <Main title="Create a Note">
       <div className="createNoteContainer">
@@ -112,7 +117,7 @@ const CreateNote = () => {
                 className="mx-2"
                 variant="info"
                 style={{ flexDirection: "row", marginTop: 10 }}
-                onClick={submitHandler}
+                onClick={draftSubmitHandler}
               >
                 Save as draft
               </Button>
