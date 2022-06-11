@@ -22,7 +22,6 @@ function App() {
           <Route path="/" component={LandingPage} exact />
           <Route path="/login" component={LoginPage} />
           <Route path="/profile" component={ProfilePage} />
-          <Route path="/draft" component={MyDraft} />
           <Route path="/change-password" component={ChangePassword} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/createnote" component={CreateNote} />
@@ -31,6 +30,12 @@ function App() {
             path="/mynotes"
             component={({ history }) => (
               <MyNotes search={search} history={history} />
+            )}
+          />
+          <Route
+            path="/draft"
+            component={({ history }) => (
+              <MyDraft search={search} history={history} />
             )}
           />
         </main>

@@ -11,7 +11,7 @@ import { useHistory } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import "./MyDraft.css";
-const MyDraft = () => {
+const MyDraft = ({ search }) => {
   const dispatch = useDispatch();
 
   const noteList = useSelector((state) => state.noteList);
@@ -55,76 +55,82 @@ const MyDraft = () => {
 
         {loading && <Loading />}
         {loadingDelete && <Loading />}
-        {notes?.reverse().map((note) => (
-          <Accordion key={note._id}>
-            <Card style={{ margin: 10 }}>
-              <Card.Header style={{ display: "flex" }}>
-                <span
-                  style={{
-                    color: "black",
-                    textDecoration: "none",
-                    flex: 1,
-                    cursor: "pointer",
-                    alignSelf: "center",
-                    fontSize: 18,
-                  }}
-                >
-                  <Accordion.Toggle
-                    as={Card.Text}
-                    variant="link"
-                    eventKey="0"
-                    className="grid-container"
+        {notes
+          ?.filter((filteredNote) =>
+            filteredNote.title.toLowerCase().includes(search.toLowerCase())
+          )
+          .reverse()
+          .map((note) => (
+            <Accordion key={note._id}>
+              <Card style={{ margin: 10 }}>
+                <Card.Header style={{ display: "flex" }}>
+                  <span
+                    style={{
+                      color: "black",
+                      textDecoration: "none",
+                      flex: 1,
+                      cursor: "pointer",
+                      alignSelf: "center",
+                      fontSize: 18,
+                    }}
                   >
-                    {note.visibility.toLowerCase() === "private" ? (
-                      <LockOutlinedIcon className="head" />
-                    ) : (
-                      <PublicOutlinedIcon className="head" />
-                    )}
-                    <div>
-                      {note.title}
-                      <br />
-                      {note.user._id !== userInfo._id ? (
-                        <i className="center">Owned by {note.user.name}</i>
+                    <Accordion.Toggle
+                      as={Card.Text}
+                      variant="link"
+                      eventKey="0"
+                      className="grid-container"
+                    >
+                      {note.visibility.toLowerCase() === "private" ? (
+                        <LockOutlinedIcon className="head" />
+                      ) : (
+                        <PublicOutlinedIcon className="head" />
+                      )}
+                      <div>
+                        {note.title}
+                        <br />
+                        {note.user._id !== userInfo._id ? (
+                          <i className="center">Owned by {note.user.name}</i>
+                        ) : null}
+                      </div>
+                    </Accordion.Toggle>
+                  </span>
+                </Card.Header>
+                <Accordion.Collapse eventKey="0">
+                  <Card.Body>
+                    <h4>
+                      <span class="badge rounded-pill bg-info">
+                        Category -{note.category}
+                      </span>
+                    </h4>
+                    <blockquote className="blockquote mb-0">
+                      <ReactMarkdown>{note.content}</ReactMarkdown>
+                      {userInfo._id === note.user._id ? (
+                        <>
+                          <Button className="mx-2" href={`/note/${note._id}`}>
+                            Edit
+                          </Button>
+                          <Button
+                            variant="danger"
+                            className="mx-2"
+                            onClick={() => deleteDraft(note._id)}
+                          >
+                            Delete
+                          </Button>
+                        </>
                       ) : null}
-                    </div>
-                  </Accordion.Toggle>
-                </span>
-              </Card.Header>
-              <Accordion.Collapse eventKey="0">
-                <Card.Body>
-                  <h4>
-                    <span class="badge rounded-pill bg-info">
-                      Category -{note.category}
-                    </span>
-                  </h4>
-                  <blockquote className="blockquote mb-0">
-                    <ReactMarkdown>{note.content}</ReactMarkdown>
-                    {userInfo._id === note.user._id ? (
-                      <>
-                        <Button className="mx-2" href={`/note/${note._id}`}>
-                          Edit
-                        </Button>
-                        <Button
-                          variant="danger"
-                          className="mx-2"
-                          onClick={() => deleteDraft(note._id)}
-                        >
-                          Delete
-                        </Button>
-                      </>
-                    ) : null}
-                    <footer className="blockquote-footer">
-                      Created on{" "}
-                      <cite title="Source Title">
-                        {note.createdAt.substring(0, 10)}
-                      </cite>
-                    </footer>
-                  </blockquote>
-                </Card.Body>
-              </Accordion.Collapse>
-            </Card>
-          </Accordion>
-        ))}
+
+                      <footer className="blockquote-footer">
+                        Created on{" "}
+                        <cite title="Source Title">
+                          {note.createdAt.substring(0, 10)}
+                        </cite>
+                      </footer>
+                    </blockquote>
+                  </Card.Body>
+                </Accordion.Collapse>
+              </Card>
+            </Accordion>
+          ))}
       </Main>
     </Container>
   );
