@@ -113,7 +113,9 @@ const MyDraft = () => {
                     ) : null}
                     <footer className="blockquote-footer">
                       Created on{" "}
-                      <cite title="Source Title">{note.createdAt}</cite>
+                      <cite title="Source Title">
+                        {note.createdAt.substring(0, 10)}
+                      </cite>
                     </footer>
                   </blockquote>
                 </Card.Body>
