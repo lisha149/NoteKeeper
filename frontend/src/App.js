@@ -11,6 +11,7 @@ import CreateNote from "./screens/Createnote/CreateNote";
 import UpdateNote from "./screens/Singlenote/UpdateDeleteNote";
 import { useState } from "react";
 import ChangePassword from "./screens/ChangePassword/ChangePassword";
+import MyDraft from "./screens/Mydraft/MyDraft";
 function App() {
   const [search, setSearch] = useState("");
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" component={LandingPage} exact />
           <Route path="/login" component={LoginPage} />
           <Route path="/profile" component={ProfilePage} />
+          <Route path="/draft" component={MyDraft} />
           <Route path="/change-password" component={ChangePassword} />
           <Route path="/register" component={RegisterPage} />
           <Route path="/createnote" component={CreateNote} />

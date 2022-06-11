@@ -56,6 +56,7 @@ const Header = ({ setSearch }) => {
                   <NavDropdown.Item href="/profile">
                     My Profile
                   </NavDropdown.Item>
+                  <NavDropdown.Item href="/draft">My Drafts</NavDropdown.Item>
                   <NavDropdown.Divider />
                   <NavDropdown.Item href="/change-password">
                     Change Password

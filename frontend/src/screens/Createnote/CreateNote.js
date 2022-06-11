@@ -6,7 +6,6 @@ import { createNoteAction } from "../../actions/notesActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useHistory } from "react-router-dom";
-import Radio from "@mui/material/Radio";
 
 import "./CreateNote.css";
 const CreateNote = () => {
@@ -14,6 +13,7 @@ const CreateNote = () => {
   const [content, setContent] = useState("");
   const [category, setCategory] = useState("");
   const [visibility, setVisibility] = useState("PRIVATE");
+  const [status, setStatus] = useState("PUBLISHED");
 
   const dispatch = useDispatch();
 
@@ -36,9 +36,7 @@ const CreateNote = () => {
     history.push("/mynotes");
     resetHandler();
   };
-  const handleChange = (event) => {
-    setVisibility(event.target.value);
-  };
+
   return (
     <Main title="Create a Note">
       <div className="createNoteContainer">
@@ -90,7 +88,9 @@ const CreateNote = () => {
                       name="visibility"
                       label={status}
                       onChange={(e) => setVisibility(status.toUpperCase())}
-                      checked={visibility.toLowerCase() == status.toLowerCase()}
+                      checked={
+                        visibility.toLowerCase() === status.toLowerCase()
+                      }
                     />
                   ))}
                 </div>
@@ -112,7 +112,7 @@ const CreateNote = () => {
                 className="mx-2"
                 variant="info"
                 style={{ flexDirection: "row", marginTop: 10 }}
-                // onClick={submitHandler}
+                onClick={submitHandler}
               >
                 Save as draft
               </Button>

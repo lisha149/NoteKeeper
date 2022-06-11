@@ -1,13 +1,17 @@
 const Note = require("../models/noteModel");
 const asyncHandler = require("express-async-handler");
-const User = require("../models/userModel");
-const ObjectId = require("mongodb").ObjectId;
 
 const getNotes = asyncHandler(async (req, res) => {
+  console.log(req.query);
+  const isDraft = (req.query["is_draft"] ?? "").toLowerCase() === "true";
+  console.log(isDraft);
   const query = {
-    $or: [{ user: req.user._id }, { visibility: "PUBLIC" }],
+    $or: [{ user: req.user }, { visibility: "PUBLIC" }],
+    $and: [{ status: isDraft ? "DRAFT" : "PUBLISHED" }],
   };
+  console.log(query);
   const notes = await Note.find(query);
+
   res.json(notes);
 });
 
@@ -44,6 +48,7 @@ const getNoteById = asyncHandler(async (req, res) => {
 
   res.json(note);
 });
+
 const updateNote = asyncHandler(async (req, res) => {
   const { title, content, category, visibility } = req.body;
 

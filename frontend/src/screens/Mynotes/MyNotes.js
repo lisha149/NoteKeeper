@@ -56,7 +56,7 @@ const MyNotes = ({ search }) => {
     successUpdate,
     successDelete,
   ]);
-  // const [icon, setIcon] = useState(LockOutlinedIcon);
+
   return (
     <Container>
       <Main title={`Welcome ${userInfo.name} `}>
@@ -106,7 +106,7 @@ const MyNotes = ({ search }) => {
                       <div>
                         {note.title}
                         <br />
-                        {note.user._id != userInfo._id ? (
+                        {note.user._id !== userInfo._id ? (
                           <i className="center">Owned by {note.user.name}</i>
                         ) : null}
                       </div>
@@ -122,7 +122,7 @@ const MyNotes = ({ search }) => {
                     </h4>
                     <blockquote className="blockquote mb-0">
                       <ReactMarkdown>{note.content}</ReactMarkdown>
-                      {userInfo._id === note.user ? (
+                      {userInfo._id === note.user._id ? (
                         <>
                           <Button className="mx-2" href={`/note/${note._id}`}>
                             Edit
