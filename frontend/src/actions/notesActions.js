@@ -14,7 +14,7 @@ import {
 } from "../constants/notesConstants";
 import axios from "axios";
 
-export const listNotes = () => async (dispatch, getState) => {
+export const listNotes = (isDraft) => async (dispatch, getState) => {
   try {
     dispatch({
       type: NOTES_LIST_REQUEST,
@@ -27,6 +27,9 @@ export const listNotes = () => async (dispatch, getState) => {
     const config = {
       headers: {
         Authorization: `Bearer ${userInfo.token}`,
+      },
+      params: {
+        is_draft: Boolean(isDraft),
       },
     };
 

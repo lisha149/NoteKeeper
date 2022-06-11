@@ -2,14 +2,11 @@ const Note = require("../models/noteModel");
 const asyncHandler = require("express-async-handler");
 
 const getNotes = asyncHandler(async (req, res) => {
-  console.log(req.query);
   const isDraft = (req.query["is_draft"] ?? "").toLowerCase() === "true";
-  console.log(isDraft);
   const query = {
     $or: [{ user: req.user }, { visibility: "PUBLIC" }],
     $and: [{ status: isDraft ? "DRAFT" : "PUBLISHED" }],
   };
-  console.log(query);
   const notes = await Note.find(query);
 
   res.json(notes);
