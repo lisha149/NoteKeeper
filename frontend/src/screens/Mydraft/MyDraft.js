@@ -10,6 +10,7 @@ import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import { useHistory } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
+import "./MyDraft.css";
 const MyDraft = () => {
   const dispatch = useDispatch();
 
@@ -18,9 +19,6 @@ const MyDraft = () => {
 
   const userLogin = useSelector((state) => state.userLogin);
   const { userInfo } = userLogin;
-
-  const noteCreate = useSelector((state) => state.noteCreate);
-  const { success: successCreate } = noteCreate;
 
   const noteUpdate = useSelector((state) => state.noteUpdate);
   const { success: successUpdate } = noteUpdate;
@@ -33,7 +31,7 @@ const MyDraft = () => {
   } = noteDelete;
   const history = useHistory();
 
-  const deleteHandler = (id) => {
+  const deleteDraft = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
       dispatch(deleteNoteAction(id));
       window.location.reload();
@@ -45,14 +43,7 @@ const MyDraft = () => {
     if (!userInfo) {
       history.push("/");
     }
-  }, [
-    dispatch,
-    history,
-    userInfo,
-    successUpdate,
-    successDelete,
-    successCreate,
-  ]);
+  }, [dispatch, history, userInfo, successUpdate, successDelete]);
 
   return (
     <Container>
@@ -116,7 +107,7 @@ const MyDraft = () => {
                         <Button
                           variant="danger"
                           className="mx-2"
-                          onClick={() => deleteHandler(note._id)}
+                          onClick={() => deleteDraft(note._id)}
                         >
                           Delete
                         </Button>

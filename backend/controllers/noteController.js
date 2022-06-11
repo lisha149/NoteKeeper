@@ -4,8 +4,11 @@ const asyncHandler = require("express-async-handler");
 const getNotes = asyncHandler(async (req, res) => {
   const isDraft = (req.query["is_draft"] ?? "").toLowerCase() === "true";
   const query = {
-    $or: [{ user: req.user }, { visibility: "PUBLIC" }],
-    $and: [{ status: isDraft ? "DRAFT" : "PUBLISHED" }],
+    $or: [
+      { user: req.user },
+      { $and: [{ visibility: "PUBLIC" }, { status: "PUBLISHED" }] },
+    ],
+    status: isDraft ? "DRAFT" : "PUBLISHED",
   };
   const notes = await Note.find(query);
 
@@ -51,7 +54,7 @@ const updateNote = asyncHandler(async (req, res) => {
 
   const note = await Note.findById(req.params.id);
 
-  if (note.user.toString() !== req.user._id.toString()) {
+  if (note.user._id.toString() !== req.user._id.toString()) {
     res.status(401);
     throw new Error("You can't perform this action");
   }
@@ -73,7 +76,7 @@ const updateNote = asyncHandler(async (req, res) => {
 const deleteNote = asyncHandler(async (req, res) => {
   const note = await Note.findById(req.params.id);
 
-  if (note.user.toString() !== req.user._id.toString()) {
+  if (note.user._id.toString() !== req.user._id.toString()) {
     res.status(401);
     throw new Error("You can't perform this action");
   }
