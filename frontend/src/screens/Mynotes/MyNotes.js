@@ -134,6 +134,13 @@ const MyNotes = ({ search }) => {
                           >
                             Delete
                           </Button>
+                          <Button
+                            variant="info"
+                            className="mx-2"
+                            href={`/note-detail/${note._id}`}
+                          >
+                            Details
+                          </Button>
                         </>
                       ) : null}
                       <footer className="blockquote-footer">

@@ -11,6 +11,9 @@ import {
   NOTES_DELETE_FAIL,
   NOTES_DELETE_REQUEST,
   NOTES_DELETE_SUCCESS,
+  NOTES_DETAIL_REQUEST,
+  NOTES_DETAIL_SUCCESS,
+  NOTES_DETAIL_FAIL,
 } from "../constants/notesConstants";
 import axios from "axios";
 
@@ -89,6 +92,7 @@ export const createNoteAction =
       });
     }
   };
+
 export const updateNoteAction =
   (id, title, content, category, visibility) => async (dispatch, getState) => {
     try {
@@ -153,6 +157,40 @@ export const deleteNoteAction = (id) => async (dispatch, getState) => {
   } catch (error) {
     dispatch({
       type: NOTES_DELETE_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
+export const detailNoteAction = (id) => async (dispatch, getState) => {
+  try {
+    dispatch({
+      type: NOTES_DETAIL_REQUEST,
+    });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`/api/notes/${id}`, config);
+
+    dispatch({
+      type: NOTES_DETAIL_SUCCESS,
+      payload: data,
+    });
+  } catch (error) {
+    dispatch({
+      type: NOTES_DETAIL_FAIL,
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
