@@ -51,7 +51,7 @@ export const listNotes = (isDraft) => async (dispatch, getState) => {
 };
 
 export const createNoteAction =
-  (title, content, category, visibility, status) =>
+  (title, content, category, visibility, status = "PUBLISHED") =>
   async (dispatch, getState) => {
     try {
       dispatch({

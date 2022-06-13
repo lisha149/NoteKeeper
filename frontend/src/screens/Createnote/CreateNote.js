@@ -6,8 +6,8 @@ import { createNoteAction } from "../../actions/notesActions";
 import Loading from "../../components/Loading";
 import ErrorMessage from "../../components/ErrorMessage";
 import { useHistory } from "react-router-dom";
-
 import "./CreateNote.css";
+
 const CreateNote = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -19,8 +19,6 @@ const CreateNote = () => {
   const noteCreate = useSelector((state) => state.noteCreate);
   const { loading, error, note } = noteCreate;
 
-  console.log(note);
-
   const resetHandler = () => {
     setTitle("");
     setCategory("");
@@ -29,18 +27,27 @@ const CreateNote = () => {
   const history = useHistory();
   const submitHandler = (e) => {
     e.preventDefault();
-    if (!title || !content || !category) return;
-    dispatch(createNoteAction(title, content, category, visibility));
-
-    history.push("/mynotes");
-    resetHandler();
+    dispatch(createNoteAction(title, content, category, visibility)).then(
+      (_) => {
+        if (noteCreate.note) {
+          history.push("/mynotes");
+          resetHandler();
+        }
+      }
+    );
   };
 
   const draftSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(createNoteAction(title, content, category, visibility, "DRAFT"));
-    history.push("/draft");
-    window.location.reload();
+    dispatch(
+      createNoteAction(title, content, category, visibility, "DRAFT")
+    ).then((_) => {
+      if (noteCreate.note) {
+        console.log("draft success");
+        history.push("/draft");
+        window.location.reload();
+      }
+    });
   };
   return (
     <Main title="Create a Note">
