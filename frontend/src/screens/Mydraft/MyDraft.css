@@ -20,13 +20,14 @@
   display: inherit;
   font-size: 10px;
 }
-
-.icon {
-  display: flex;
-  text-align: center;
-  align-self: center;
-}
-h2 {
+h3 {
   text-align: center;
   text-shadow: 2px 2px #78c2ad;
+}
+.image {
+  text-align: center;
+  display: block;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
 }

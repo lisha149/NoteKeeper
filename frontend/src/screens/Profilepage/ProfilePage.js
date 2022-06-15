@@ -5,7 +5,7 @@ import "./ProfilePage.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updateProfile } from "../../actions/userActions";
 import Loading from "../../components/Loading";
-import ErrorMessage from "../../components/ErrorMessage";
+import Error from "../../components/Error";
 const ProfilePage = ({ history }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -66,12 +66,8 @@ const ProfilePage = ({ history }) => {
           <Col md={6}>
             <Form onSubmit={submitHandler}>
               {loading && <Loading />}
-              {success && (
-                <ErrorMessage variant="success">
-                  Updated Successfully
-                </ErrorMessage>
-              )}
-              {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+              {success && <Error variant="success">Updated Successfully</Error>}
+              {error && <Error variant="danger">{error}</Error>}
               <Form.Group controlId="name">
                 <Form.Label>Name</Form.Label>
                 <Form.Control
@@ -90,9 +86,7 @@ const ProfilePage = ({ history }) => {
                   onChange={(e) => setEmail(e.target.value)}
                 ></Form.Control>
               </Form.Group>
-              {picMessage && (
-                <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
-              )}
+              {picMessage && <Error variant="danger">{picMessage}</Error>}
               <Form.Group controlId="pic">
                 <Form.Label>Change Profile Picture</Form.Label>
                 <Form.File

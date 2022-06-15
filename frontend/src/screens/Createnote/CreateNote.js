@@ -4,7 +4,7 @@ import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNoteAction } from "../../actions/notesActions";
 import Loading from "../../components/Loading";
-import ErrorMessage from "../../components/ErrorMessage";
+import Error from "../../components/Error";
 import { useHistory } from "react-router-dom";
 import "./CreateNote.css";
 
@@ -64,7 +64,7 @@ const CreateNote = () => {
           <Card.Header>Create a new Note</Card.Header>
           <Card.Body>
             <Form onSubmit={submitHandler}>
-              {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+              {error && <Error variant="danger">{error}</Error>}
 
               <Form.Group controlId="title">
                 <Form.Label>Title</Form.Label>

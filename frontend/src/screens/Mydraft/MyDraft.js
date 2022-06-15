@@ -7,9 +7,9 @@ import { deleteNoteAction, listNotes } from "../../actions/notesActions";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import { useHistory } from "react-router-dom";
-import ErrorMessage from "../../components/ErrorMessage";
+import Error from "../../components/Error";
 import Loading from "../../components/Loading";
-import WarningIcon from "@mui/icons-material/Warning";
+import logo from "../../assets/nodata.png";
 import "./MyDraft.css";
 const MyDraft = ({ search }) => {
   const dispatch = useDispatch();
@@ -48,25 +48,22 @@ const MyDraft = ({ search }) => {
   return (
     <Container>
       <Main title={`My Drafts`}>
-        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-        {errorDelete && (
-          <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
-        )}
+        {error && <Error variant="danger">{error}</Error>}
+        {errorDelete && <Error variant="danger">{errorDelete}</Error>}
 
         {loading && <Loading />}
         {loadingDelete && <Loading />}
 
-        {!Array.isArray(notes) || !notes.length ? (
+        {Array(notes).length ? (
           <>
-            <WarningIcon
-              style={{
-                marginLeft: "auto",
-                marginRight: "auto",
-                fontSize: 300,
-                display: "flex",
-              }}
-            />
-            <h2>NO DATA FOUND</h2>
+            <img
+              src={logo}
+              alt="no data"
+              width="200"
+              height="200"
+              className="image"
+            ></img>
+            <h3>NO DRAFT AVAILABLE!!</h3>
           </>
         ) : (
           notes

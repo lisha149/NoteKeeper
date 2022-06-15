@@ -8,7 +8,7 @@ import {
   deleteNoteAction,
   createNoteAction,
 } from "../../actions/notesActions";
-import ErrorMessage from "../../components/ErrorMessage";
+import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import { useHistory } from "react-router-dom";
 import "./Update.css";
@@ -101,13 +101,9 @@ const UpdateNote = ({ match }) => {
               {loadingDelete && <Loading />}
               {loadingCreate && <Loading />}
               {loading && <Loading />}
-              {errorDelete && (
-                <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
-              )}
-              {errorCreate && (
-                <ErrorMessage variant="danger">{errorCreate}</ErrorMessage>
-              )}
-              {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+              {errorDelete && <Error variant="danger">{errorDelete}</Error>}
+              {errorCreate && <Error variant="danger">{errorCreate}</Error>}
+              {error && <Error variant="danger">{error}</Error>}
               <Form.Group controlId="title">
                 <Form.Label>Title</Form.Label>
                 <Form.Control

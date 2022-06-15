@@ -5,7 +5,7 @@ import "./ChangePassword.css";
 import { useDispatch, useSelector } from "react-redux";
 import { updatePassword } from "../../actions/userActions";
 import Loading from "../../components/Loading";
-import ErrorMessage from "../../components/ErrorMessage";
+import Error from "../../components/Error";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useHistory } from "react-router-dom";
@@ -51,11 +51,9 @@ const ChangePassword = () => {
               <Form onSubmit={submitHandler}>
                 {loading && <Loading />}
                 {success && (
-                  <ErrorMessage variant="success">
-                    Updated Successfully
-                  </ErrorMessage>
+                  <Error variant="success">Updated Successfully</Error>
                 )}
-                {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+                {error && <Error variant="danger">{error}</Error>}
                 <Form.Group controlId="password">
                   <Form.Label>Password</Form.Label>
                   <Form.Control

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Button, Card, Container } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import { useHistory } from "react-router-dom";
-import ErrorMessage from "../../components/ErrorMessage";
+import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { listNotes, deleteNoteAction } from "../../actions/notesActions";
@@ -64,10 +64,8 @@ const MyNotes = ({ search }) => {
             Create New Note
           </Button>
         </Link>
-        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-        {errorDelete && (
-          <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
-        )}
+        {error && <Error variant="danger">{error}</Error>}
+        {errorDelete && <Error variant="danger">{errorDelete}</Error>}
 
         {loading && <Loading />}
         {loadingDelete && <Loading />}

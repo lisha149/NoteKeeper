@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert } from "react-bootstrap";
 
-const ErrorMessage = ({ variant = "info", children }) => {
+const Error = ({ variant = "info", children }) => {
   return (
     <Alert variant={variant} style={{ fontSize: 20 }}>
       <strong>{children}</strong>
@@ -9,4 +9,4 @@ const ErrorMessage = ({ variant = "info", children }) => {
   );
 };
 
-export default ErrorMessage;
+export default Error;
