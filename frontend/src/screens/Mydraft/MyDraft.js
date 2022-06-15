@@ -9,6 +9,7 @@ import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import { useHistory } from "react-router-dom";
 import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
+import WarningIcon from "@mui/icons-material/Warning";
 import "./MyDraft.css";
 const MyDraft = ({ search }) => {
   const dispatch = useDispatch();
@@ -56,7 +57,17 @@ const MyDraft = ({ search }) => {
         {loadingDelete && <Loading />}
 
         {!Array.isArray(notes) || !notes.length ? (
-          <ErrorMessage variant="info">There's no draft available</ErrorMessage>
+          <>
+            <WarningIcon
+              style={{
+                marginLeft: "auto",
+                marginRight: "auto",
+                fontSize: 300,
+                display: "flex",
+              }}
+            />
+            <h2>NO DATA FOUND</h2>
+          </>
         ) : (
           notes
             ?.filter((filteredNote) =>
