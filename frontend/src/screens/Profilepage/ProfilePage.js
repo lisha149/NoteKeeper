@@ -99,7 +99,6 @@ const ProfilePage = ({ history }) => {
                   onChange={(e) => postDetails(e.target.files[0])}
                   id="custom-file"
                   type="image/png"
-                  //   label="Upload Profile Picture"
                   custom
                 />
               </Form.Group>

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Main from "../../components/Main";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,6 +24,7 @@ const CreateNote = () => {
     setCategory("");
     setContent("");
   };
+
   const history = useHistory();
   const submitHandler = (e) => {
     e.preventDefault();
@@ -39,16 +40,23 @@ const CreateNote = () => {
 
   const draftSubmitHandler = (e) => {
     e.preventDefault();
-    dispatch(
-      createNoteAction(title, content, category, visibility, "DRAFT")
-    ).then((_) => {
-      if (noteCreate.note) {
-        console.log("draft success");
-        history.push("/draft");
-        window.location.reload();
-      }
-    });
+
+    dispatch(createNoteAction(title, content, category, visibility, "DRAFT"))
+      .then((response) => {
+        console.log(note);
+        console.log(noteCreate.note);
+        if (noteCreate.note) {
+          console.log("draft success");
+          history.push("/draft");
+          window.location.reload();
+        }
+      })
+      .catch((error) => {
+        console.log("I am at catch");
+        console.log(error);
+      });
   };
+  useEffect(() => {}, []);
   return (
     <Main title="Create a Note">
       <div className="createNoteContainer">

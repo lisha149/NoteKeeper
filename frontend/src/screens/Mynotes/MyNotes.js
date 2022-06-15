@@ -8,7 +8,6 @@ import ErrorMessage from "../../components/ErrorMessage";
 import Loading from "../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { listNotes, deleteNoteAction } from "../../actions/notesActions";
-import ReactMarkdown from "react-markdown";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import "./MyNotes.css";
@@ -121,7 +120,7 @@ const MyNotes = ({ search }) => {
                       </span>
                     </h4>
                     <blockquote className="blockquote mb-0">
-                      <ReactMarkdown>{note.content}</ReactMarkdown>
+                      {note.content}
                       {userInfo._id === note.user._id ? (
                         <>
                           <Button className="mx-2" href={`/note/${note._id}`}>

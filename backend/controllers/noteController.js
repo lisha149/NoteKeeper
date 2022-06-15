@@ -21,8 +21,9 @@ const createNote = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("Please fill in all the feilds");
   } else if (status == "DRAFT" && !title && !content && !category) {
-    res.status(400);
-    throw new Error("Please fill at least one field to save as draft");
+    res
+      .status(400)
+      .json({ message: "Please fill at least one field to save as draft" });
   } else {
     const note = new Note({
       user: req.user,
