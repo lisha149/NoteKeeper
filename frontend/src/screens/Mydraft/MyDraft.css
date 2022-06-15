@@ -25,8 +25,7 @@ h3 {
   text-shadow: 2px 2px #78c2ad;
 }
 .image {
-  text-align: center;
-  display: block;
+  display: flex;
   justify-content: center;
   align-items: center;
   margin: auto;

@@ -34,7 +34,6 @@ const MyDraft = ({ search }) => {
   const deleteDraft = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
       dispatch(deleteNoteAction(id));
-      window.location.reload();
     }
   };
 
@@ -63,6 +62,7 @@ const MyDraft = ({ search }) => {
               height="200"
               className="image"
             ></img>
+
             <h3>NO DRAFT AVAILABLE!!</h3>
           </>
         ) : (
