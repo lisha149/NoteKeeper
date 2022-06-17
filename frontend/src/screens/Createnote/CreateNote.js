@@ -28,14 +28,9 @@ const CreateNote = () => {
   const history = useHistory();
   const submitHandler = (e) => {
     e.preventDefault();
-    dispatch(createNoteAction(title, content, category, visibility)).then(
-      (_) => {
-        if (noteCreate.note) {
-          history.push("/mynotes");
-          resetHandler();
-        }
-      }
-    );
+    dispatch(createNoteAction(title, content, category, visibility));
+    history.push("/mynotes");
+    resetHandler();
   };
 
   const draftSubmitHandler = (e) => {

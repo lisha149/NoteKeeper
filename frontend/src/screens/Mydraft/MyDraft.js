@@ -53,7 +53,7 @@ const MyDraft = ({ search }) => {
         {loading && <Loading />}
         {loadingDelete && <Loading />}
 
-        {Array(notes).length ? (
+        {!Array.isArray(notes) || !notes.length ? (
           <>
             <img
               src={logo}
