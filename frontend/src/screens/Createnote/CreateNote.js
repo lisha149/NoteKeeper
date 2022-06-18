@@ -37,12 +37,16 @@ const CreateNote = () => {
     dispatch(createNoteAction(title, content, category, visibility, "DRAFT"));
     resetHandler();
   };
-
   useEffect(() => {
     if (noteCreate.note) {
-      history.push("/mynotes");
+      if (noteCreate.note.status.toLowerCase() === "published") {
+        history.push("/mynotes");
+      } else {
+        history.push("/draft");
+      }
+      history.go();
     }
-  }, [dispatch, history, noteCreate]);
+  }, [history, noteCreate]);
   return (
     <Main title="Create a Note">
       <div className="createNoteContainer">
