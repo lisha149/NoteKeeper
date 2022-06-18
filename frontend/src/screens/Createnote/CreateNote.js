@@ -29,29 +29,20 @@ const CreateNote = () => {
   const submitHandler = (e) => {
     e.preventDefault();
     dispatch(createNoteAction(title, content, category, visibility));
-    history.push("/mynotes");
     resetHandler();
   };
 
   const draftSubmitHandler = (e) => {
     e.preventDefault();
-
-    dispatch(createNoteAction(title, content, category, visibility, "DRAFT"))
-      .then((response) => {
-        console.log(note);
-        console.log(noteCreate.note);
-        if (noteCreate.note) {
-          console.log("draft success");
-          history.push("/draft");
-          window.location.reload();
-        }
-      })
-      .catch((error) => {
-        console.log("I am at catch");
-        console.log(error);
-      });
+    dispatch(createNoteAction(title, content, category, visibility, "DRAFT"));
+    resetHandler();
   };
-  useEffect(() => {}, []);
+
+  useEffect(() => {
+    if (noteCreate.note) {
+      history.push("/mynotes");
+    }
+  }, [dispatch, history, noteCreate]);
   return (
     <Main title="Create a Note">
       <div className="createNoteContainer">
