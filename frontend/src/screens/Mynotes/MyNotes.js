@@ -124,6 +124,13 @@ const MyNotes = ({ search }) => {
                             Edit
                           </Button>
                           <Button
+                            variant="info"
+                            className="mx-2"
+                            href={`/note-detail/${note._id}`}
+                          >
+                            Details
+                          </Button>
+                          <Button
                             variant="danger"
                             className="mx-2"
                             onClick={() => deleteHandler(note._id)}

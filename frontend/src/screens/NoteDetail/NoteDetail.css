@@ -1,0 +1,23 @@
+.profilePic {
+  /* vertical-align: middle; */
+  display: grid, inline-grid;
+  width: 90px;
+  height: 90px;
+  border-radius: 50%;
+}
+.grid-container {
+  display: grid;
+  grid-template-columns: 60px 750px 150px;
+  align-items: center;
+}
+.comment-form-textarea {
+  height: 40px;
+  width: 750px;
+}
+.center {
+  display: inherit;
+  font-size: 15px;
+}
+.text {
+  text-align: center;
+}

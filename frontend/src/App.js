@@ -12,6 +12,7 @@ import UpdateNote from "./screens/Updatenote/UpdateDeleteNote";
 import { useState } from "react";
 import ChangePassword from "./screens/ChangePassword/ChangePassword";
 import MyDraft from "./screens/Mydraft/MyDraft";
+import NoteDetail from "./screens/NoteDetail/NoteDetail";
 function App() {
   const [search, setSearch] = useState("");
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route path="/register" component={RegisterPage} />
           <Route path="/createnote" component={CreateNote} />
           <Route path="/note/:id" component={UpdateNote} />
+          <Route path="/note-detail/:id" component={NoteDetail} />
           <Route
             path="/mynotes"
             component={({ history }) => (

@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import {
   noteCreateReducer,
   noteDeleteReducer,
+  noteDetailReducer,
   noteListReducer,
   noteUpdateReducer,
 } from "./reducers/notesReducers";
@@ -26,6 +27,7 @@ export const store = configureStore({
     noteCreate: noteCreateReducer,
     noteUpdate: noteUpdateReducer,
     noteDelete: noteDeleteReducer,
+    noteDetail: noteDetailReducer,
     userUpdate: userUpdateReducer,
     userUpdatePw: userUpdatePwReducer,
   },
