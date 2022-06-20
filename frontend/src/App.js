@@ -8,7 +8,7 @@ import LoginPage from "./screens/Loginpage/LoginPage";
 import RegisterPage from "./screens/Registerpage/RegisterPage";
 import ProfilePage from "./screens/Profilepage/ProfilePage";
 import CreateNote from "./screens/Createnote/CreateNote";
-import UpdateNote from "./screens/Singlenote/UpdateDeleteNote";
+import UpdateNote from "./screens/Updatenote/UpdateDeleteNote";
 import { useState } from "react";
 import ChangePassword from "./screens/ChangePassword/ChangePassword";
 import MyDraft from "./screens/Mydraft/MyDraft";

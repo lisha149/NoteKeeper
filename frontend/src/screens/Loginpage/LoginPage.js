@@ -2,13 +2,12 @@ import React from "react";
 import { useState, useEffect } from "react";
 import Main from "../../components/Main";
 import Loading from "../../components/Loading";
-import ErrorMessage from "../../components/ErrorMessage";
+import Error from "../../components/Error";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import "./LoginPage.css";
 import { useHistory } from "react-router-dom";
 import { login } from "../../actions/userActions";
-
 const LoginPage = () => {
   // window.mango = history;
   const [email, setEmail] = useState("");
@@ -36,7 +35,7 @@ const LoginPage = () => {
     <Main title="LOGIN">
       <div className="loginContainer">
         {loading && <Loading />}
-        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+        {error && <Error variant="danger">{error}</Error>}
         <Form style={{ marginTop: 20 }} onSubmit={submitHandler}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email address</Form.Label>
@@ -46,8 +45,6 @@ const LoginPage = () => {
               placeholder="Enter email"
               onChange={(e) => setEmail(e.target.value)}
             />
-            {/* {error && <div className="error-msg">{error}</div>} */}
-            {/* {emailError && <div className="error-msg">{emailError}</div>} */}
           </Form.Group>
 
           <Form.Group controlId="formBasicPassword">

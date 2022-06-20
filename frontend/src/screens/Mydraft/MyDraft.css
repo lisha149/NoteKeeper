@@ -20,3 +20,13 @@
   display: inherit;
   font-size: 10px;
 }
+h3 {
+  text-align: center;
+  text-shadow: 2px 2px #78c2ad;
+}
+.image {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+}

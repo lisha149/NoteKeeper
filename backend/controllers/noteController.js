@@ -17,10 +17,13 @@ const getNotes = asyncHandler(async (req, res) => {
 
 const createNote = asyncHandler(async (req, res) => {
   const { title, content, category, visibility, status } = req.body;
-
-  if (!title || !content || !category) {
+  if (status == "PUBLISHED" && (!title || !content || !category)) {
     res.status(400);
     throw new Error("Please fill in all the feilds");
+  } else if (status == "DRAFT" && !title && !content && !category) {
+    res
+      .status(400)
+      .json({ message: "Please fill at least one field to save as draft" });
   } else {
     const note = new Note({
       user: req.user,
@@ -30,9 +33,7 @@ const createNote = asyncHandler(async (req, res) => {
       visibility,
       status,
     });
-
     const createdNote = await note.save();
-
     res.status(201).json(createdNote);
   }
 });

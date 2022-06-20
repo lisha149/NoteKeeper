@@ -32,7 +32,7 @@ const userSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-// will encrypt password everytime its saved
+
 userSchema.pre("save", async function (next) {
   if (!this.isModified("password")) {
     next();

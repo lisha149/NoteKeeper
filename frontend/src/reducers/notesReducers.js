@@ -21,7 +21,6 @@ export const noteListReducer = (state = { notes: [] }, action) => {
       return { loading: false, notes: action.payload };
     case NOTES_LIST_FAIL:
       return { loading: false, error: action.payload };
-
     default:
       return state;
   }
@@ -32,10 +31,9 @@ export const noteCreateReducer = (state = {}, action) => {
     case NOTES_CREATE_REQUEST:
       return { loading: true };
     case NOTES_CREATE_SUCCESS:
-      return { loading: false, success: true };
+      return { loading: false, success: true, note: action.payload };
     case NOTES_CREATE_FAIL:
       return { loading: false, error: action.payload };
-
     default:
       return state;
   }
@@ -49,7 +47,6 @@ export const noteUpdateReducer = (state = {}, action) => {
       return { loading: false, success: true };
     case NOTES_UPDATE_FAIL:
       return { loading: false, error: action.payload, success: false };
-
     default:
       return state;
   }

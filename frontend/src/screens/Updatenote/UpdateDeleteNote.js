@@ -3,8 +3,12 @@ import Main from "../../components/Main";
 import axios from "axios";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
-import { updateNoteAction, deleteNoteAction } from "../../actions/notesActions";
-import ErrorMessage from "../../components/ErrorMessage";
+import {
+  updateNoteAction,
+  deleteNoteAction,
+  createNoteAction,
+} from "../../actions/notesActions";
+import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import { useHistory } from "react-router-dom";
 import "./Update.css";
@@ -14,7 +18,7 @@ const UpdateNote = ({ match }) => {
   const [category, setCategory] = useState();
   const [date, setDate] = useState("");
   const [visibility, setVisibility] = useState("");
-
+  const [status, setStatus] = useState("");
   const history = useHistory();
   // hook
   const dispatch = useDispatch();
@@ -24,6 +28,9 @@ const UpdateNote = ({ match }) => {
 
   const noteDelete = useSelector((state) => state.noteDelete);
   const { loading: loadingDelete, error: errorDelete } = noteDelete;
+
+  const noteCreate = useSelector((state) => state.noteCreate);
+  const { loading: loadingCreate, error: errorCreate, note } = noteCreate;
 
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
@@ -42,6 +49,7 @@ const UpdateNote = ({ match }) => {
       setCategory(data.category);
       setDate(data.updatedAt);
       setVisibility(data.visibility);
+      setStatus(data.status);
     };
 
     fetching();
@@ -59,24 +67,43 @@ const UpdateNote = ({ match }) => {
       updateNoteAction(match.params.id, title, content, category, visibility)
     );
     if (!title || !content || !category) return;
-
     resetHandler();
     history.push("/mynotes");
     window.location.reload();
   };
+  const draftHandler = (e) => {
+    e.preventDefault();
+    dispatch(
+      updateNoteAction(match.params.id, title, content, category, visibility)
+    );
+    if (!title || !content || !category) return;
+    resetHandler();
+    history.push("/draft");
+    window.location.reload();
+  };
+
+  const submitHandler = (e) => {
+    e.preventDefault();
+    if (!title || !content || !category) return;
+    dispatch(createNoteAction(title, content, category, visibility));
+
+    history.push("/mynotes");
+    resetHandler();
+  };
+
   return (
     <Main title="Edit Note">
       <div className="updateNoteContainer">
         <Card>
           <Card.Header>Edit your Note</Card.Header>
           <Card.Body>
-            <Form onSubmit={updateHandler}>
+            <Form>
               {loadingDelete && <Loading />}
-
-              {errorDelete && (
-                <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
-              )}
-              {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+              {loadingCreate && <Loading />}
+              {loading && <Loading />}
+              {errorDelete && <Error variant="danger">{errorDelete}</Error>}
+              {errorCreate && <Error variant="danger">{errorCreate}</Error>}
+              {error && <Error variant="danger">{error}</Error>}
               <Form.Group controlId="title">
                 <Form.Label>Title</Form.Label>
                 <Form.Control
@@ -118,7 +145,9 @@ const UpdateNote = ({ match }) => {
                       id={`default-radio-1`}
                       name="visibility"
                       label={status}
-                      checked={visibility.toLowerCase() == status.toLowerCase()}
+                      checked={
+                        visibility.toLowerCase() === status.toLowerCase()
+                      }
                       onChange={(e) => setVisibility(status.toUpperCase())}
                     />
                   ))}
@@ -126,22 +155,54 @@ const UpdateNote = ({ match }) => {
               </Form.Group>
 
               {loading && <Loading size={50} />}
-              <Button
-                variant="primary"
-                type="submit"
-                style={{ flexDirection: "row", marginTop: 10 }}
-              >
-                Update Note
-              </Button>
 
-              <Button
-                className="mx-2"
-                variant="danger"
-                style={{ flexDirection: "row", marginTop: 10 }}
-                onClick={() => deleteHandler(match.params.id)}
-              >
-                Delete Note
-              </Button>
+              {status === "DRAFT" ? (
+                <>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    style={{ flexDirection: "row", marginTop: 10 }}
+                    onClick={draftHandler}
+                  >
+                    Update Draft
+                  </Button>
+                  <Button
+                    className="mx-2"
+                    variant="info"
+                    style={{ flexDirection: "row", marginTop: 10 }}
+                    onClick={submitHandler}
+                  >
+                    Publish
+                  </Button>
+                  <Button
+                    className="mx-2"
+                    variant="danger"
+                    style={{ flexDirection: "row", marginTop: 10 }}
+                    onClick={() => deleteHandler(match.params.id)}
+                  >
+                    Delete Draft
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button
+                    variant="primary"
+                    type="submit"
+                    style={{ flexDirection: "row", marginTop: 10 }}
+                    onClick={updateHandler}
+                  >
+                    Update Note
+                  </Button>
+                  <Button
+                    className="mx-2"
+                    variant="danger"
+                    style={{ flexDirection: "row", marginTop: 10 }}
+                    onClick={() => deleteHandler(match.params.id)}
+                  >
+                    Delete Note
+                  </Button>
+                </>
+              )}
             </Form>
           </Card.Body>
 

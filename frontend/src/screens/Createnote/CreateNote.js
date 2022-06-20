@@ -1,13 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Main from "../../components/Main";
 import { Button, Card, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { createNoteAction } from "../../actions/notesActions";
 import Loading from "../../components/Loading";
-import ErrorMessage from "../../components/ErrorMessage";
+import Error from "../../components/Error";
 import { useHistory } from "react-router-dom";
-
 import "./CreateNote.css";
+
 const CreateNote = () => {
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -19,29 +19,34 @@ const CreateNote = () => {
   const noteCreate = useSelector((state) => state.noteCreate);
   const { loading, error, note } = noteCreate;
 
-  console.log(note);
-
   const resetHandler = () => {
     setTitle("");
     setCategory("");
     setContent("");
   };
+
   const history = useHistory();
   const submitHandler = (e) => {
     e.preventDefault();
-    if (!title || !content || !category) return;
     dispatch(createNoteAction(title, content, category, visibility));
-
-    history.push("/mynotes");
     resetHandler();
   };
 
   const draftSubmitHandler = (e) => {
     e.preventDefault();
     dispatch(createNoteAction(title, content, category, visibility, "DRAFT"));
-    history.push("/draft");
-    window.location.reload();
+    resetHandler();
   };
+  useEffect(() => {
+    if (noteCreate.note) {
+      if (noteCreate.note.status.toLowerCase() === "published") {
+        history.push("/mynotes");
+      } else {
+        history.push("/draft");
+      }
+      history.go();
+    }
+  }, [history, noteCreate]);
   return (
     <Main title="Create a Note">
       <div className="createNoteContainer">
@@ -49,7 +54,7 @@ const CreateNote = () => {
           <Card.Header>Create a new Note</Card.Header>
           <Card.Body>
             <Form onSubmit={submitHandler}>
-              {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
+              {error && <Error variant="danger">{error}</Error>}
 
               <Form.Group controlId="title">
                 <Form.Label>Title</Form.Label>

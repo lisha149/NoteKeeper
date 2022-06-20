@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Form, Button, Row, Col } from "react-bootstrap";
 import Loading from "../../components/Loading";
-import ErrorMessage from "../../components/ErrorMessage";
+import Error from "../../components/Error";
 import Main from "../../components/Main";
 import { register } from "../../actions/userActions";
 import { useHistory } from "react-router-dom";
@@ -72,8 +72,8 @@ const RegisterPage = () => {
   return (
     <Main title="REGISTER">
       <div className="registerContainer">
-        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-        {message && <ErrorMessage variant="danger">{message}</ErrorMessage>}
+        {error && <Error variant="danger">{error}</Error>}
+        {message && <Error variant="danger">{message}</Error>}
         {loading && <Loading />}
         <Form style={{ marginTop: 20 }} onSubmit={submitHandler}>
           <Form.Group controlId="name">
@@ -116,9 +116,7 @@ const RegisterPage = () => {
             />
           </Form.Group>
 
-          {picMessage && (
-            <ErrorMessage variant="danger">{picMessage}</ErrorMessage>
-          )}
+          {picMessage && <Error variant="danger">{picMessage}</Error>}
           <Form.Group controlId="pic">
             <Form.Label>Profile Picture</Form.Label>
             <Form.File

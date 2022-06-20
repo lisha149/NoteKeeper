@@ -49,15 +49,13 @@ export const listNotes = (isDraft) => async (dispatch, getState) => {
     });
   }
 };
-
 export const createNoteAction =
-  (title, content, category, visibility, status) =>
+  (title, content, category, visibility, status = "PUBLISHED") =>
   async (dispatch, getState) => {
     try {
       dispatch({
         type: NOTES_CREATE_REQUEST,
       });
-
       const {
         userLogin: { userInfo },
       } = getState();
@@ -74,7 +72,7 @@ export const createNoteAction =
         { title, content, category, visibility, status },
         config
       );
-
+      // console.log(data);
       dispatch({
         type: NOTES_CREATE_SUCCESS,
         payload: data,

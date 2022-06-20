@@ -4,11 +4,10 @@ import { Link } from "react-router-dom";
 import { Button, Card, Container } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import { useHistory } from "react-router-dom";
-import ErrorMessage from "../../components/ErrorMessage";
+import Error from "../../components/Error";
 import Loading from "../../components/Loading";
 import { useDispatch, useSelector } from "react-redux";
 import { listNotes, deleteNoteAction } from "../../actions/notesActions";
-import ReactMarkdown from "react-markdown";
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import PublicOutlinedIcon from "@mui/icons-material/PublicOutlined";
 import "./MyNotes.css";
@@ -39,7 +38,6 @@ const MyNotes = ({ search }) => {
   const deleteHandler = (id) => {
     if (window.confirm("Are you sure you want to delete?")) {
       dispatch(deleteNoteAction(id));
-      window.location.reload();
     }
   };
 
@@ -65,10 +63,8 @@ const MyNotes = ({ search }) => {
             Create New Note
           </Button>
         </Link>
-        {error && <ErrorMessage variant="danger">{error}</ErrorMessage>}
-        {errorDelete && (
-          <ErrorMessage variant="danger">{errorDelete}</ErrorMessage>
-        )}
+        {error && <Error variant="danger">{error}</Error>}
+        {errorDelete && <Error variant="danger">{errorDelete}</Error>}
 
         {loading && <Loading />}
         {loadingDelete && <Loading />}
@@ -121,7 +117,7 @@ const MyNotes = ({ search }) => {
                       </span>
                     </h4>
                     <blockquote className="blockquote mb-0">
-                      <ReactMarkdown>{note.content}</ReactMarkdown>
+                      {note.content}
                       {userInfo._id === note.user._id ? (
                         <>
                           <Button className="mx-2" href={`/note/${note._id}`}>
